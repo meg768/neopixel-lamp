@@ -73,15 +73,9 @@ var App = function() {
 
 			socket.on('set-to-color', function(data) {
 
-				var red     = parseInt(data.red);
-				var green   = parseInt(data.green);
-				var blue    = parseInt(data.blue);
-				var segment = parseInt(data.segment);
-
-				debug('Setting to color', [red, green, blue], 'segment', segment);
-
-				strip.setColor(red, green, blue, segment * 8, 8).then(function() {
+				strip.setToColor(options).then(function() {
 				})
+				
 				.catch(function(error) {
 					console.error(error);
 				});

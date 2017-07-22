@@ -36,9 +36,7 @@ module.exports = function NeopixelStrip(options) {
 	}
 
 
-
-
-	_this.setColor = function(options) {
+	_this.setToColor = function(options) {
 
 		debug('Setting to color', options);
 
