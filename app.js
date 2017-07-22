@@ -12,8 +12,6 @@ var App = function() {
 		console.log.apply(this, arguments);
 	}
 
-
-
 	function parseArgs() {
 
 		var args = require('yargs');
@@ -48,6 +46,26 @@ var App = function() {
 
 			// Join the socket room
 			socket.emit('join', {room:argv.room});
+
+			socket.on('colorize', function(data) {
+
+				var promise = Promise.resolve();
+
+				if (data.transition == 'fade') {
+					promise = strip.fadeToColor(data);
+				}
+				else if (data.transition == 'wipe') {
+					promise = strip.wipeToColor(data);
+				}
+				else {
+					promise = strip.setToColor(data);
+				}
+
+				promise.catch(function(error) {
+					console.error(error);
+				});
+
+			});
 
 			socket.on('fade-to-color', function(data) {
 
