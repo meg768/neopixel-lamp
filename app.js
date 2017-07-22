@@ -17,7 +17,7 @@ var App = function() {
 		var args = require('yargs');
 
 		args.usage('Usage: $0 [options]');
-		args.help('h').alias('h', 'help');
+		args.help('help').alias('help', 'h');
 
 		args.option('url', {alias:'u', describe:'Socket IO url', default:'http://app-o.se'});
 		args.option('address', {alias:'a', describe:'I2C bus address', default:0x26});
