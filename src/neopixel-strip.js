@@ -23,30 +23,6 @@ module.exports = function NeopixelStrip(options) {
 			console.log.apply(this, arguments);
 	}
 
-	_this.segment = function(offset, length) {
-
-		var _strip = _this;
-
-		this.setColor = function(red, green, blue) {
-			return _strip.setColor(red, green, blue, offset, length);
-		}
-
-		this.fadeToColor = function(red, green, blue, time) {
-			return _strip.fadeToColor(red, green, blue, time, offset, length);
-		}
-
-		this.wipeToColor = function(red, green, blue, delay) {
-			return _strip.wipeToColor(red, green, blue, delay, offset, length);
-		}
-
-		this.pause = function(ms) {
-
-			return _strip.pause(ms);
-		}
-
-	};
-
-
 
 	_this.pause = function(ms) {
 
@@ -95,27 +71,18 @@ module.exports = function NeopixelStrip(options) {
 		return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, delay]);
 	}
 
-	_this.fadeToColor = function(red, green, blue, time, offset, length) {
+	_this.fadeToColor = function(options) {
 
-		debug('Fading to color', [red, green, blue]);
+		debug('Fading to color', options);
 
-		if (offset == undefined)
-			offset = 0;
+		var red    = options.red    == undefined : 0 : options.red;
+		var green  = options.green  == undefined : 0 : options.green;
+		var blue   = options.blue   == undefined : 0 : options.blue;
+		var offset = options.offset == undefined ? 0 : options.offset;
+		var length = options.length == undefined ? _length : options.length;
+		var delay  = options.delay  == undefined ? 300 : options.delay;
 
-		if (length == undefined)
-			length = _length;
-
-		if (time == undefined)
-			time = 1000;
-
-		offset = parseInt(offset);
-		length = parseInt(length);
-		red    = parseInt(red);
-		green  = parseInt(green);
-		blue   = parseInt(blue);
-		time   = parseInt(time);
-
-		return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (time >> 8) & 0xFF, time & 0xFF]);
+		return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (delay >> 8) & 0xFF, delay & 0xFF]);
 	}
 
 

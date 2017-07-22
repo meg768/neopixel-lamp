@@ -58,12 +58,13 @@ var App = function() {
 				var blue    = parseInt(data.blue);
 				var offset  = data.segment == undefined ? 0 : data.segment * segmentLength;
 				var length  = data.segment == undefined ? argv.length : segmentLength;
-				var time    = data.time == undefined ? 300 : data.time;
+				var delay   = data.delay == undefined ? 300 : data.delay;
 
 				debug('Fading to color', [red, green, blue], 'offset', offset, 'length', length);
 
-				strip.fadeToColor(red, green, blue, time, offset, length).then(function() {
+				strip.fadeToColor(red, green, blue, delay, offset, length).then(function() {
 				})
+
 				.catch(function(error) {
 					console.error(error);
 				});
