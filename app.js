@@ -4,7 +4,7 @@ var sprintf = require('yow/sprintf');
 var isObject = require('yow/is').isObject;
 var prefixLogs = require('yow/logs').prefix;
 var NeopixelStrip = require('./src/neopixel-strip.js');
-var config = require('./config.js');
+var config = require('./src/config.js');
 
 var App = function() {
 
