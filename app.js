@@ -4,7 +4,7 @@ var sprintf = require('yow/sprintf');
 var isObject = require('yow/is').isObject;
 var prefixLogs = require('yow/logs').prefix;
 var NeopixelStrip = require('./src/neopixel-strip.js');
-
+var config = require('./config.js');
 
 var App = function() {
 
@@ -21,11 +21,11 @@ var App = function() {
 		args.usage('Usage: $0 [options]');
 		args.help('help').alias('help', 'h');
 
-		args.option('url',      {alias:'u', describe:'Socket IO url', default:'http://app-o.se'});
-		args.option('address',  {alias:'a', describe:'I2C bus address', default:0x26});
-		args.option('length',   {alias:'l', describe:'Neopixel strip length', default:32});
-		args.option('segments', {alias:'s', describe:'Number of segments in strip', default:4});
-		args.option('room',     {alias:'r', describe:'Socket server chat room', default:'neopixel-lamp'});
+		args.option('url',      {alias:'u', describe:'Socket IO url', default:config.url});
+		args.option('address',  {alias:'a', describe:'I2C bus address', default:config.i2c.address});
+		args.option('length',   {alias:'l', describe:'Neopixel strip length', default:config.strip.length});
+		args.option('segments', {alias:'s', describe:'Number of segments in strip', default:config.strip.segments});
+		args.option('room',     {alias:'r', describe:'Socket server chat room', default:config.room});
 
 		args.wrap(null);
 
@@ -75,7 +75,7 @@ var App = function() {
 
 				strip.setToColor(options).then(function() {
 				})
-				
+
 				.catch(function(error) {
 					console.error(error);
 				});
