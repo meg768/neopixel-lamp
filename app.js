@@ -19,14 +19,10 @@ var App = function() {
 		args.usage('Usage: $0 [options]');
 		args.help('h').alias('h', 'help');
 
-		args.option('d', {alias:'dining-room', describe:'Control dining room lights', default:false});
-		args.option('l', {alias:'living-room', describe:'Control living room lights', default:false});
-		args.option('o', {alias:'office',      describe:'Control office lights', default:false});
-		args.option('c', {alias:'cellar',      describe:'Control cellar lights', default:false});
-		args.option('t', {alias:'terrace',     describe:'Control terrace lights', default:false});
-		args.option('a', {alias:'all',         describe:'Control all lights', default:true});
-		args.option('L', {alias:'listen',      describe:'Start socket service', default:false});
-		args.option('p', {alias:'port',        describe:'Listen to specified port', default:3010});
+		args.option('url', {alias:'u', describe:'Socket IO url', default:'http://app-o.se'});
+		args.option('address', {alias:'a', describe:'I2C bus address', default:0x26});
+		args.option('length', {alias:'l', describe:'Neopixel strip length', default:32});
+		args.option('segments', {alias:'s', describe:'Number of segments in strip', default:4});
 
 		args.wrap(null);
 
@@ -41,8 +37,8 @@ var App = function() {
 
 		prefixLogs();
 
-		var strip = new NeopixelStrip({length:32, address:0x26});
-		var socket = require('socket.io-client')('http://app-o.se');
+		var strip = new NeopixelStrip({length:argv.length, address:argv.address});
+		var socket = require('socket.io-client')(argv.url);
 
 
 		socket.on('connect', function(data) {
