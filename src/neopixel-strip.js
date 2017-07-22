@@ -1,4 +1,4 @@
-
+var I2C = require('i2c-bus');
 
 
 module.exports = function NeopixelStrip(options) {
@@ -12,11 +12,15 @@ module.exports = function NeopixelStrip(options) {
 	const CMD_WIPE_TO_COLOR = 0x13;
 
 	var _this          = this;         // That
-	var _wire          = undefined;    // I2C communication
-	var _length        = 32;            // Length of Neopixels
 	var _debug         = 1;            // Output log messages to console?
 	var _timeout       = 10000;        // Read/write timeout in ms
 	var _retryInterval = 300;          // Milliseconds to wait before retrying read/write
+
+	var _length        = options.length == undefined ? 32 : options.length;            // Length of Neopixels
+	var _segments      = options.segments == undefined ? 1 : options.segments;
+	var _address       = options.address == undefined ? 0x26 : options.address;
+	var _segmentLength = Math.floor(_length / _segments);
+	var _wire          = I2C.openSync(1);
 
 	function debug() {
 		if (_debug)
@@ -75,12 +79,12 @@ module.exports = function NeopixelStrip(options) {
 
 		debug('Fading to color', options);
 
-		var red    = options.red    == undefined ? 0 : options.red;
-		var green  = options.green  == undefined ? 0 : options.green;
-		var blue   = options.blue   == undefined ? 0 : options.blue;
-		var offset = options.offset == undefined ? 0 : options.offset;
-		var length = options.length == undefined ? _length : options.length;
-		var delay  = options.delay  == undefined ? 300 : options.delay;
+		var red    = options.red     == undefined ? 0 : options.red;
+		var green  = options.green   == undefined ? 0 : options.green;
+		var blue   = options.blue    == undefined ? 0 : options.blue;
+		var length = options.segment == undefined ? _length : _segmentLength;
+		var offset = options.segment == undefined ? 0 : options.segment * _segmentLength;
+		var delay  = options.delay   == undefined ? 300 : options.delay;
 
 		return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (delay >> 8) & 0xFF, delay & 0xFF]);
 	}
@@ -213,18 +217,6 @@ module.exports = function NeopixelStrip(options) {
 
 	}
 
-	function init() {
-        if (options == undefined)
-            options = {};
 
-        if (options.address == undefined)
-            options.address = 0x26;
-
-		var I2C = require('i2c-bus');
-
-		_wire = I2C.openSync(1);
-	}
-
-	init();
 
 };

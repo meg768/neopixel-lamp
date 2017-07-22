@@ -51,18 +51,7 @@ var App = function() {
 
 			socket.on('fade-to-color', function(data) {
 
-				var segmentLength = Math.floor(argv.length / argv.segments);
-
-				var red     = parseInt(data.red);
-				var green   = parseInt(data.green);
-				var blue    = parseInt(data.blue);
-				var offset  = data.segment == undefined ? 0 : data.segment * segmentLength;
-				var length  = data.segment == undefined ? argv.length : segmentLength;
-				var delay   = data.delay == undefined ? 300 : data.delay;
-
-				debug('Fading to color', [red, green, blue], 'offset', offset, 'length', length);
-
-				strip.fadeToColor(red, green, blue, delay, offset, length).then(function() {
+				strip.fadeToColor(data).then(function() {
 				})
 
 				.catch(function(error) {
