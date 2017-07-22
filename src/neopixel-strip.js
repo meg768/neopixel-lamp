@@ -75,9 +75,9 @@ module.exports = function NeopixelStrip(options) {
 
 		debug('Fading to color', options);
 
-		var red    = options.red    == undefined : 0 : options.red;
-		var green  = options.green  == undefined : 0 : options.green;
-		var blue   = options.blue   == undefined : 0 : options.blue;
+		var red    = options.red    == undefined ? 0 : options.red;
+		var green  = options.green  == undefined ? 0 : options.green;
+		var blue   = options.blue   == undefined ? 0 : options.blue;
 		var offset = options.offset == undefined ? 0 : options.offset;
 		var length = options.length == undefined ? _length : options.length;
 		var delay  = options.delay  == undefined ? 300 : options.delay;
