@@ -6,6 +6,15 @@ module.exports = function NeopixelStrip(options) {
 	const ACK = 6;
 	const NAK = 21;
 
+	if (options.length == undefined)
+		throw new Error('Neopixel strip length not defined');
+
+	if (options.segments == undefined)
+		throw new Error('Number of segments not defined');
+
+	if (options.address == undefined)
+		throw new Error('I2C address not defined');
+
 	const CMD_INITIALIZE    = 0x10;
 	const CMD_SET_TO_COLOR  = 0x11;
 	const CMD_FADE_TO_COLOR = 0x12;
@@ -16,9 +25,9 @@ module.exports = function NeopixelStrip(options) {
 	var _timeout       = 10000;        // Read/write timeout in ms
 	var _retryInterval = 300;          // Milliseconds to wait before retrying read/write
 
-	var _length        = options.length == undefined ? 32 : options.length;            // Length of Neopixels
-	var _segments      = options.segments == undefined ? 1 : options.segments;
-	var _address       = options.address == undefined ? 0x26 : options.address;
+	var _length        = options.length;
+	var _segments      = options.segments;
+	var _address       = options.address;
 	var _segmentLength = Math.floor(_length / _segments);
 	var _wire          = I2C.openSync(1);
 
