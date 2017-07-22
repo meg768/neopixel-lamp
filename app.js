@@ -40,7 +40,7 @@ var App = function() {
 
 		prefixLogs();
 
-		var strip = new NeopixelStrip({length:argv.length, address:argv.address});
+		var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
 		var socket = require('socket.io-client')(argv.url);
 
 		socket.on('connect', function(data) {
