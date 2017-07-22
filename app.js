@@ -12,6 +12,8 @@ var App = function() {
 		console.log.apply(this, arguments);
 	}
 
+
+
 	function parseArgs() {
 
 		var args = require('yargs');
@@ -19,10 +21,11 @@ var App = function() {
 		args.usage('Usage: $0 [options]');
 		args.help('help').alias('help', 'h');
 
-		args.option('url', {alias:'u', describe:'Socket IO url', default:'http://app-o.se'});
-		args.option('address', {alias:'a', describe:'I2C bus address', default:0x26});
-		args.option('length', {alias:'l', describe:'Neopixel strip length', default:32});
+		args.option('url',      {alias:'u', describe:'Socket IO url', default:'http://app-o.se'});
+		args.option('address',  {alias:'a', describe:'I2C bus address', default:0x26});
+		args.option('length',   {alias:'l', describe:'Neopixel strip length', default:32});
 		args.option('segments', {alias:'s', describe:'Number of segments in strip', default:4});
+		args.option('room',     {alias:'r', describe:'Socket server chat room', default:'neopixel-lamp'});
 
 		args.wrap(null);
 
@@ -40,45 +43,44 @@ var App = function() {
 		var strip = new NeopixelStrip({length:argv.length, address:argv.address});
 		var socket = require('socket.io-client')(argv.url);
 
-
 		socket.on('connect', function(data) {
-			console.log('CONNECT!');
+			debug('Connected to socket server.');
 
-			socket.emit('join', {room:'neopixel-lamp'});
+			// Join the socket room
+			socket.emit('join', {room:argv.room});
 
 			socket.on('fade-to-color', function(data) {
 
 				var red     = parseInt(data.red);
 				var green   = parseInt(data.green);
 				var blue    = parseInt(data.blue);
-				var segment = parseInt(data.segment);
+				var offset  = data.segment == undefined ? 0 : data.segment;
+				var length  = data.segment == undefined ? argv.length : Math.floor(argv.length / argv.segments);
 				var time    = data.time == undefined ? 300 : data.time;
 
-				console.log('Fading to color', [red, green, blue], 'segment', segment);
+				debug('Fading to color', [red, green, blue], 'offset', offset, 'length', length);
 
-				strip.fadeToColor(red, green, blue, time, segment * 8, 8).then(function() {
+				strip.fadeToColor(red, green, blue, time, offset, length).then(function() {
 				})
 				.catch(function(error) {
-					console.log(error);
+					console.error(error);
 				});
 
 			});
 
 			socket.on('set-to-color', function(data) {
 
-				console.log('Incoming', data);
-
 				var red     = parseInt(data.red);
 				var green   = parseInt(data.green);
 				var blue    = parseInt(data.blue);
 				var segment = parseInt(data.segment);
 
-				console.log('Setting to color', [red, green, blue], 'segment', segment);
+				debug('Setting to color', [red, green, blue], 'segment', segment);
 
 				strip.setColor(red, green, blue, segment * 8, 8).then(function() {
 				})
 				.catch(function(error) {
-					console.log(error);
+					console.error(error);
 				});
 
 			});
