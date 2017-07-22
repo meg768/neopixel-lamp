@@ -38,39 +38,31 @@ module.exports = function NeopixelStrip(options) {
 
 
 
-	_this.setColor = function(red, green, blue, offset, length) {
+	_this.setColor = function(options) {
 
-		if (offset == undefined)
-			offset = 0;
+		debug('Setting to color', options);
 
-		if (length == undefined)
-			length = _length;
-
-		red   = parseInt(red);
-		green = parseInt(green);
-		blue  = parseInt(blue);
+		var red    = options.red     == undefined ? 0 : options.red;
+		var green  = options.green   == undefined ? 0 : options.green;
+		var blue   = options.blue    == undefined ? 0 : options.blue;
+		var length = options.segment == undefined ? _length : _segmentLength;
+		var offset = options.segment == undefined ? 0 : options.segment * _segmentLength;
 
 		return _this.send([CMD_SET_TO_COLOR, offset, length, red, green, blue]);
 	}
 
 
-	_this.wipeToColor = function(red, green, blue, delay, offset, length) {
+	_this.wipeToColor = function(options) {
 
-		debug('Wiping to color', [red, green, blue]);
+		debug('Wiping to color', options);
 
-		if (offset == undefined)
-			offset = 0;
 
-		if (length == undefined)
-			length = _length;
-
-		if (delay == undefined)
-			delay = 1;
-
-		red    = parseInt(red);
-		green  = parseInt(green);
-		blue   = parseInt(blue);
-		delay  = parseInt(delay);
+		var red    = options.red     == undefined ? 0 : options.red;
+		var green  = options.green   == undefined ? 0 : options.green;
+		var blue   = options.blue    == undefined ? 0 : options.blue;
+		var length = options.segment == undefined ? _length : _segmentLength;
+		var offset = options.segment == undefined ? 0 : options.segment * _segmentLength;
+		var delay  = options.delay   == undefined ? 300 : options.delay;
 
 		return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, delay]);
 	}

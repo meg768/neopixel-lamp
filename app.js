@@ -60,6 +60,17 @@ var App = function() {
 
 			});
 
+			socket.on('wipe-to-color', function(data) {
+
+				strip.wipeToColor(data).then(function() {
+				})
+
+				.catch(function(error) {
+					console.error(error);
+				});
+
+			});
+
 			socket.on('set-to-color', function(data) {
 
 				var red     = parseInt(data.red);
