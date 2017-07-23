@@ -36,11 +36,28 @@ var App = function() {
 
 		var socket = require('socket.io-client')('http://app-o.se');
 
+
+		function loop() {
+			var options = {};
+			options.red = random([0, 128]);
+			options.green = random([0, 128]);
+			options.blue = random([0, 128]);
+			options.transition = 'fade';
+			options.duration = 100;
+			socket.emit('invoke', 'neopixel-lamp', 'colorize', options, function(data, error) {
+				console.log('data', data, 'error', error);
+				setTimeout(loop, 0);
+			});
+
+		}
+
 		socket.on('connect', function(data) {
 			debug('Connected to socket server.');
 
 			// Register the service
 			socket.emit('join', 'neopixel-lamp');
+
+			loop();
 
 		});
 
@@ -50,19 +67,7 @@ var App = function() {
 
 		});
 
-		function loop() {
-			var options = {};
-			options.red = random([0, 128]);
-			options.green = random([0, 128]);
-			options.blue = random([0, 128]);
-			socket.emit('invoke', 'neopixel-lamp', 'colorize', options, function() {
-				console.log('CALLBACK', args);
-			});
 
-			setTimeout(loop, 500);
-		}
-
-		loop();
 	}
 
 
