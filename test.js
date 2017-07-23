@@ -49,6 +49,13 @@ var App = function() {
 
 		});
 
+		setTimeout(function() {
+			var options = {};
+			options.red = 255;
+			options.green = 0;
+			options.blue = 0;
+			socket.emit('invoke', 'neopixel-lamp', 'colorize', options);
+		}, 5000);
 
 	}
 
