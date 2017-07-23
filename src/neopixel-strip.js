@@ -64,28 +64,28 @@ module.exports = function NeopixelStrip(options) {
 		debug('Wiping to color', options);
 
 
-		var red    = options.red     == undefined ? 0 : options.red;
-		var green  = options.green   == undefined ? 0 : options.green;
-		var blue   = options.blue    == undefined ? 0 : options.blue;
-		var length = options.segment == undefined ? _length : _segmentLength;
-		var offset = options.segment == undefined ? 0 : options.segment * _segmentLength;
-		var delay  = options.delay   == undefined ? 300 : options.delay;
+		var red      = options.red      == undefined ? 0 : options.red;
+		var green    = options.green    == undefined ? 0 : options.green;
+		var blue     = options.blue     == undefined ? 0 : options.blue;
+		var length   = options.segment  == undefined ? _length : _segmentLength;
+		var offset   = options.segment  == undefined ? 0 : options.segment * _segmentLength;
+		var duration = options.duration == undefined ? 300 : options.duration;
 
-		return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, delay]);
+		return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, duration]);
 	}
 
 	_this.fadeToColor = function(options) {
 
 		debug('Fading to color', options);
 
-		var red    = options.red     == undefined ? 0 : options.red;
-		var green  = options.green   == undefined ? 0 : options.green;
-		var blue   = options.blue    == undefined ? 0 : options.blue;
-		var length = options.segment == undefined ? _length : _segmentLength;
-		var offset = options.segment == undefined ? 0 : options.segment * _segmentLength;
-		var delay  = options.delay   == undefined ? 300 : options.delay;
+		var red      = options.red      == undefined ? 0 : options.red;
+		var green    = options.green    == undefined ? 0 : options.green;
+		var blue     = options.blue     == undefined ? 0 : options.blue;
+		var length   = options.segment  == undefined ? _length : _segmentLength;
+		var offset   = options.segment  == undefined ? 0 : options.segment * _segmentLength;
+		var duration = options.duration == undefined ? 300 : options.duration;
 
-		return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (delay >> 8) & 0xFF, delay & 0xFF]);
+		return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]);
 	}
 
 
