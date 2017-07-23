@@ -64,7 +64,7 @@ var App = function() {
 			}
 
 			promise.then(function() {
-				fn({status:'OK'});
+				fn({status:'Colorize OK'});
 			})
 
 			.catch(function(error) {
