@@ -28,7 +28,7 @@ var Module = new function() {
 
 		try {
 			console.log(argv);
-			var socket = require('socket.io-client')('http://app-o.se');
+			var socket = require('socket.io-client')(argv.service.url);
 
 			function loop() {
 				var options = {};
