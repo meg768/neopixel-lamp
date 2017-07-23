@@ -1,1 +1,1 @@
-module.exports = require('../neopixel-lamp.json');
+module.exports = require('../../neopixel-lamp.json');
