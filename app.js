@@ -69,6 +69,9 @@ var App = function() {
 
 				if (isFunction(fn))
 					fn({status:'OK'});
+				else {
+					console.log('No callback!');
+				}
 			})
 
 			.catch(function(error) {

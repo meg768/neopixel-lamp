@@ -4,6 +4,7 @@ var sprintf = require('yow/sprintf');
 var isObject = require('yow/is').isObject;
 var isFunction = require('yow/is').isFunction;
 var prefixLogs = require('yow/logs').prefix;
+var random = require('yow/random');
 
 var App = function() {
 
@@ -49,14 +50,19 @@ var App = function() {
 
 		});
 
-		setTimeout(function() {
+		function loop() {
 			var options = {};
-			options.red = 255;
-			options.green = 0;
-			options.blue = 0;
-			socket.emit('invoke', 'neopixel-lamp', 'colorize', options);
-		}, 5000);
+			options.red = random([0, 128]);
+			options.green = random([0, 128]);
+			options.blue = random([0, 128]);
+			socket.emit('invoke', 'neopixel-lamp', 'colorize', options, function() {
+				console.log('CALLBACK', args);
+			});
 
+			setTimeout(loop, 500);
+		}
+
+		loop();
 	}
 
 
