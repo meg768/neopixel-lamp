@@ -16,6 +16,7 @@ var Module = new function() {
 
 		args.help('help').alias('help', 'h');
 		args.option('url', {alias:'u', describe:'Socket IO url', default:config.service.url});
+		args.option('service', {alias:'n', describe:'Service name', default:config.service.name});
 		args.wrap(null);
 
 
@@ -39,7 +40,7 @@ var Module = new function() {
 				options.segment = random([0, 1, 2, 3, null]);
 				options.transition = 'fade';
 				options.duration = 1000;
-				socket.emit('invoke', 'neopixel-lamp', 'colorize', options, function(data) {
+				socket.emit('invoke', argv.service, 'colorize', options, function(data) {
 					console.log('Reply', data);
 					setTimeout(loop, data.error ? 5000 : 0);
 				});
@@ -50,7 +51,7 @@ var Module = new function() {
 				debug('Connected to socket server.');
 
 				// Register the service
-				socket.emit('join', 'neopixel-lamp');
+				socket.emit('join', argv.service);
 
 				loop();
 
