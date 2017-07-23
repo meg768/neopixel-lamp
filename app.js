@@ -47,58 +47,64 @@ var App = function() {
 			// Join the socket room
 			socket.emit('join', {room:argv.room});
 
-			socket.on('colorize', function(data) {
+		});
 
-				var promise = Promise.resolve();
+		socket.on('colorize', function(data, fn) {
 
-				if (data.transition == 'fade') {
-					promise = strip.fadeToColor(data);
-				}
-				else if (data.transition == 'wipe') {
-					promise = strip.wipeToColor(data);
-				}
-				else {
-					promise = strip.setToColor(data);
-				}
+			var promise = Promise.resolve();
 
-				promise.catch(function(error) {
-					console.error(error);
-				});
+			if (data.transition == 'fade') {
+				promise = strip.fadeToColor(data);
+			}
+			else if (data.transition == 'wipe') {
+				promise = strip.wipeToColor(data);
+			}
+			else {
+				promise = strip.setToColor(data);
+			}
 
+			promise.then(function() {
+				fn({status:'OK'});
+			})
+
+			.catch(function(error) {
+				console.error(error);
+				fn({error:error.message});
 			});
 
-			socket.on('fade-to-color', function(data) {
+		});
 
-				strip.fadeToColor(data).then(function() {
-				})
+		socket.on('fade-to-color', function(data) {
 
-				.catch(function(error) {
-					console.error(error);
-				});
+			strip.fadeToColor(data).then(function() {
+			})
 
+			.catch(function(error) {
+				console.error(error);
 			});
 
-			socket.on('wipe-to-color', function(data) {
+		});
 
-				strip.wipeToColor(data).then(function() {
-				})
+		socket.on('wipe-to-color', function(data) {
 
-				.catch(function(error) {
-					console.error(error);
-				});
+			strip.wipeToColor(data).then(function() {
+			})
 
+			.catch(function(error) {
+				console.error(error);
 			});
 
-			socket.on('set-to-color', function(data) {
+		});
 
-				strip.setToColor(options).then(function() {
-				})
+		socket.on('set-to-color', function(data) {
 
-				.catch(function(error) {
-					console.error(error);
-				});
+			strip.setToColor(options).then(function() {
+			})
 
+			.catch(function(error) {
+				console.error(error);
 			});
+
 		});
 
 
