@@ -4,6 +4,7 @@ var isObject = require('yow/is').isObject;
 var isFunction = require('yow/is').isFunction;
 var random = require('yow/random');
 
+
 var Module = new function() {
 
 	function debug() {
@@ -14,10 +15,6 @@ var Module = new function() {
 
 		args.help('help').alias('help', 'h');
 
-		args.option('log', {alias: 'l', describe:'Log output to file'});
-		args.option('port', {alias: 'p', describe:'Listen to specified port', default:3002});
-		args.option('ping', {alias: 'P', describe:'Check status by pinging itself', default:true});
-		args.option('namespace', {alias: 'n', describe:'Use the specified namespace', default:'tellstick'});
 		args.wrap(null);
 
 
@@ -30,7 +27,6 @@ var Module = new function() {
 	function run(argv) {
 
 		try {
-			console.log(argv);
 			var socket = require('socket.io-client')('http://app-o.se');
 
 			function loop() {
