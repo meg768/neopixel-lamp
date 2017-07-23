@@ -13,7 +13,6 @@ var App = function() {
 			args.usage('Usage: $0 <command> [options]')
 
 			args.help();
-			args.option('url', {alias:'u', describe:'Socket IO url', default:config.service.url});
 
 			args.command(require('./src/commands/test.js'));
 			args.command(require('./src/commands/server.js'));

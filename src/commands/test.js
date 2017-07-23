@@ -3,6 +3,7 @@ var sprintf = require('yow/sprintf');
 var isObject = require('yow/is').isObject;
 var isFunction = require('yow/is').isFunction;
 var random = require('yow/random');
+var config = require('../scripts/config.js');
 
 
 var Module = new function() {
