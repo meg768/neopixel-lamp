@@ -33,7 +33,7 @@ var Module = new function() {
 	function run(argv) {
 
 		prefixLogs();
-console.log(argv);
+
 		var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
 		var socket = require('socket.io-client')(argv.url);
 
