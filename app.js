@@ -46,7 +46,7 @@ var App = function() {
 			debug('Connected to socket server.');
 
 			// Register the service
-			socket.emit('service', {name:argv.room, timeout:1000});
+			socket.emit('service', {name:argv.room, timeout:10000});
 
 		});
 
