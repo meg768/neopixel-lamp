@@ -44,7 +44,7 @@ var App = function() {
 			options.blue = random([0, 128, 256]);
 			options.segment = random([0, 1, 2, 3, null]);
 			options.transition = 'fade';
-			options.duration = 500;
+			options.duration = 1000;
 			socket.emit('invoke', 'neopixel-lamp', 'colorize', options, function(data) {
 				console.log('Reply', data);
 				setTimeout(loop, 0);
