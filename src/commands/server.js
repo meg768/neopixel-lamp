@@ -19,7 +19,6 @@ var Module = new function() {
 		args.option('url',      {alias:'u', describe:'Socket IO url', default:'http://app-o.se'});
 		args.option('address',  {alias:'a', describe:'I2C bus address', default:0x26});
 		args.option('length',   {alias:'l', describe:'Neopixel strip length', default:32});
-		args.option('segments', {alias:'s', describe:'Number of segments in strip', default:4});
 		args.option('room',     {alias:'r', describe:'Socket server chat room', default:'neopixel-lamp'});
 
 		args.wrap(null);
