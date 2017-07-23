@@ -65,6 +65,8 @@ var App = function() {
 			}
 
 			promise.then(function() {
+				socket.emit('broadcast', argv.room, 'color-changed', data);
+				
 				if (isFunction(fn))
 					fn({status:'OK'});
 			})
