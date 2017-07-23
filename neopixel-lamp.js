@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var sprintf = require('yow/sprintf');
+var config = require('./src/scripts/config.js');
 
 var App = function() {
 
@@ -10,6 +11,8 @@ var App = function() {
 			var args = require('yargs');
 
 			args.usage('Usage: $0 <command> [options]')
+
+			args.option('url', {alias:'u', describe:'Socket IO url', default:config.service.url});
 
 			args.command(require('./src/commands/test.js'));
 			args.command(require('./src/commands/server.js'));
