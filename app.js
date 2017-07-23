@@ -2,6 +2,7 @@
 
 var sprintf = require('yow/sprintf');
 var isObject = require('yow/is').isObject;
+var isFunction = require('yow/is').isFunction;
 var prefixLogs = require('yow/logs').prefix;
 var NeopixelStrip = require('./src/neopixel-strip.js');
 var config = require('./src/config.js');
@@ -64,12 +65,15 @@ var App = function() {
 			}
 
 			promise.then(function() {
-				fn({status:'Colorize OK'});
+				if (isFunction(fn))
+					fn({status:'OK'});
 			})
 
 			.catch(function(error) {
 				console.error(error);
-				fn({error:error.message});
+
+				if (isFunction(fn))
+					fn({error:error.message});
 			});
 
 		});
