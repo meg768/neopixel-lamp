@@ -78,39 +78,6 @@ var App = function() {
 
 		});
 
-		socket.on('fade-to-color', function(data) {
-
-			strip.fadeToColor(data).then(function() {
-			})
-
-			.catch(function(error) {
-				console.error(error);
-			});
-
-		});
-
-		socket.on('wipe-to-color', function(data) {
-
-			strip.wipeToColor(data).then(function() {
-			})
-
-			.catch(function(error) {
-				console.error(error);
-			});
-
-		});
-
-		socket.on('set-to-color', function(data) {
-
-			strip.setToColor(options).then(function() {
-			})
-
-			.catch(function(error) {
-				console.error(error);
-			});
-
-		});
-
 
 	}
 
