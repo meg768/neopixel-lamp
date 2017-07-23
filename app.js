@@ -45,8 +45,7 @@ var App = function() {
 		socket.on('connect', function(data) {
 			debug('Connected to socket server.');
 
-			// Join the socket room
-			socket.emit('join', {room:argv.room});
+			// Register the service
 			socket.emit('service', {name:argv.room});
 
 		});
