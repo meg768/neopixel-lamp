@@ -47,6 +47,7 @@ var App = function() {
 
 			// Join the socket room
 			socket.emit('join', {room:argv.room});
+			socket.emit('service', {name:argv.room});
 
 		});
 
