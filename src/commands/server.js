@@ -17,6 +17,7 @@ var Module = new function() {
 
 		args.help('help').alias('help', 'h');
 
+		args.option('url',      {alias:'u', describe:'Socket IO url', default:config.service.url});
 		args.option('address',  {alias:'a', describe:'I2C bus address', default:config.i2c.address});
 		args.option('length',   {alias:'l', describe:'Neopixel strip length', default:config.strip.length});
 		args.option('segments', {alias:'s', describe:'Number of segments in strip', default:config.strip.segments});

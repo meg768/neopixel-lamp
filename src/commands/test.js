@@ -14,7 +14,7 @@ var Module = new function() {
 	function defineArgs(args) {
 
 		args.help('help').alias('help', 'h');
-
+		args.option('url', {alias:'u', describe:'Socket IO url', default:config.service.url});
 		args.wrap(null);
 
 
@@ -28,7 +28,7 @@ var Module = new function() {
 
 		try {
 			console.log(argv);
-			var socket = require('socket.io-client')(argv.service.url);
+			var socket = require('socket.io-client')(argv.url);
 
 			function loop() {
 				var options = {};
