@@ -65,16 +65,15 @@ var App = function() {
 			}
 
 			promise.then(function() {
-				if (isFunction(fn)) {
-					fn({status:'OK'}, 'Upps!');
-				}
+				if (isFunction(fn))
+					fn({status:'OK'});
 			})
 
 			.catch(function(error) {
 				console.error(error);
 
 				if (isFunction(fn))
-					fn({}, error.message);
+					fn({error: error.message});
 			});
 
 		});
