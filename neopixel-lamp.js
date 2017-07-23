@@ -12,7 +12,7 @@ var App = function() {
 			args.usage('Usage: $0 <command> [options]')
 
 			args.command(require('./src/commands/test.js'));
-			//args.command(require('./src/commands/server.js'));
+			args.command(require('./src/commands/server.js'));
 
 			args.help();
 
