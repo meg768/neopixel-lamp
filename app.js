@@ -66,7 +66,7 @@ var App = function() {
 
 			promise.then(function() {
 				if (isFunction(fn)) {
-					fn({status:'OK'}, new Error('Upps'));
+					fn({status:'OK'}, 'Upps!');
 				}
 			})
 
@@ -74,7 +74,7 @@ var App = function() {
 				console.error(error);
 
 				if (isFunction(fn))
-					fn({error:error.message});
+					fn({}, error.message);
 			});
 
 		});
