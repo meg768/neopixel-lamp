@@ -39,7 +39,7 @@ var App = function() {
 			debug('Connected to socket server.');
 
 			// Register the service
-			socket.emit('join', {name:neopixel-lamp});
+			socket.emit('join', {name:'neopixel-lamp'});
 
 		});
 
