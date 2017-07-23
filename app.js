@@ -66,8 +66,7 @@ var App = function() {
 
 			promise.then(function() {
 				if (isFunction(fn)) {
-					var error = new Error('Upps');
-					fn(error);
+					fn({status:'OK'}, new Error('Upps'));
 				}
 			})
 
