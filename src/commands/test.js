@@ -39,9 +39,9 @@ var Module = new function() {
 				options.segment = random([0, 1, 2, 3, null]);
 				options.transition = 'fade';
 				options.duration = 1000;
-					socket.emit('invoke', 'neopixel-lamp', 'colorize', options, function(data) {
+				socket.emit('invoke', 'neopixel-lamp', 'colorize', options, function(data) {
 					console.log('Reply', data);
-					setTimeout(loop, 0);
+					setTimeout(loop, data.error ? 5000 : 0);
 				});
 
 			}
