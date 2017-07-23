@@ -39,9 +39,10 @@ var App = function() {
 
 		function loop() {
 			var options = {};
-			options.red = random([0, 128]);
-			options.green = random([0, 128]);
-			options.blue = random([0, 128]);
+			options.red = random([0, 128, 256]);
+			options.green = random([0, 128, 256]);
+			options.blue = random([0, 128, 256]);
+			options.segment = random([0, 1, 2, 3, null]);
 			options.transition = 'fade';
 			options.duration = 100;
 			socket.emit('invoke', 'neopixel-lamp', 'colorize', options, function(data) {
