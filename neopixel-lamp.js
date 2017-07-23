@@ -20,11 +20,6 @@ var App = function() {
 			args.wrap(null);
 			args.demand(1);
 
-			args.check(function(argv) {
-				return true;
-			});
-
-
 			args.argv;
 
 		}

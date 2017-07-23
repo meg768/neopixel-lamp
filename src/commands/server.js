@@ -21,7 +21,7 @@ var Module = new function() {
 		args.option('address',  {alias:'a', describe:'I2C bus address', default:config.i2c.address});
 		args.option('length',   {alias:'l', describe:'Neopixel strip length', default:config.strip.length});
 		args.option('segments', {alias:'s', describe:'Number of segments in strip', default:config.strip.segments});
-		args.option('service',  {alias:'s', describe:'Service name', default:config.service.name});
+		args.option('service',  {alias:'n', describe:'Service name', default:config.service.name});
 
 		args.wrap(null);
 
