@@ -78,8 +78,8 @@ var Module = new function() {
 	}
 
 
-	module.exports.command  = 'test [options]';
-	module.exports.describe = 'Test module';
+	module.exports.command  = 'server [options]';
+	module.exports.describe = 'Run Neopixel lamp server';
 	module.exports.builder  = defineArgs;
 	module.exports.handler  = run;
 
