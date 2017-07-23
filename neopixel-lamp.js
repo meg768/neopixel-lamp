@@ -10,6 +10,7 @@ var App = function() {
 			var args = require('yargs');
 
 			args.usage('Usage: $0 <command> [options]')
+			args.option('segments', {alias:'s', describe:'Number of segments in strip', default:4});
 
 			args.command(require('./src/commands/test.js'));
 			args.command(require('./src/commands/server.js'));
