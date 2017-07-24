@@ -30,7 +30,7 @@ var Module = new function() {
 
 		try {
 			console.log(argv);
-			var socket = require('socket.io-client')(argv.url);
+			var socket = require('socket.io-client')(argv.url + '/foo');
 
 			function loop() {
 				var options = {};
