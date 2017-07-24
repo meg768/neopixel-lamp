@@ -35,20 +35,16 @@ var Module = new function() {
 		prefixLogs();
 
 		var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
-		var socket = require('socket.io-client')(argv.url + '/foobar');
+		var socket = require('socket.io-client')(argv.url + '/services');
 
 		socket.on('connect', function(data) {
 			debug('Connected to socket server.');
 
 			// Register the service
-			socket.emit('service', {name:argv.service, timeout:10000});
-			socket.emit('join', argv.service);
+			socket.emit('service', 'neopixel-lamp', ['colorize'], {timeout:10000});
 
 		});
 
-		socket.on('color-changed', function(data) {
-			console.log('I changed color');
-		});
 
 		socket.on('colorize', function(data, fn) {
 
@@ -66,7 +62,7 @@ var Module = new function() {
 
 			promise.then(function() {
 				console.log('Bradcasting!');
-				socket.emit('broadcast', argv.service, 'color-changed', data);
+				socket.emit('notify', 'color-changed', data);
 
 				if (isFunction(fn))
 					fn({status:'OK'});

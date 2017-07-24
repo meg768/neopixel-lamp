@@ -30,7 +30,7 @@ var Module = new function() {
 
 		try {
 			console.log(argv);
-			var socket = require('socket.io-client')(argv.url + '/foobar');
+			var socket = require('socket.io-client')(argv.url + '/neopixel-lamp');
 
 			function loop() {
 				var options = {};
@@ -40,7 +40,7 @@ var Module = new function() {
 				options.segment = random([0, 1, 2, 3, null]);
 				options.transition = 'fade';
 				options.duration = 1000;
-				socket.emit('invoke', argv.service, 'colorize', options, function(data) {
+				socket.emit('colorize', options, function(data) {
 					console.log('Reply', data);
 					setTimeout(loop, data.error ? 5000 : 0);
 				});
@@ -51,7 +51,7 @@ var Module = new function() {
 				debug('Connected to socket server.');
 
 				// Register the service
-				socket.emit('join', argv.service);
+				//socket.emit('join', argv.service);
 
 				loop();
 
