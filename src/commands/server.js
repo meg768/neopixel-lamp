@@ -67,7 +67,6 @@ var Module = new function() {
 			}
 
 			promise.then(function() {
-				console.log('Bradcasting!');
 				socket.emit('notify', 'color-changed', data);
 
 				if (isFunction(fn))

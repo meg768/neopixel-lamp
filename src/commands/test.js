@@ -49,6 +49,7 @@ var Module = new function() {
 
 			socket.on('disconnect', function() {
 				console.log('Disconnected!');
+				socket.reconnect();
 			});
 
 			socket.on('connect', function(data) {
