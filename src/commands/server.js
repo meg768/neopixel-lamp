@@ -45,6 +45,12 @@ var Module = new function() {
 
 		});
 
+		socket.on('disconnect', function(data) {
+			debug('Disconnected from socket server.');
+
+
+		});
+
 
 		socket.on('colorize', function(data, fn) {
 
