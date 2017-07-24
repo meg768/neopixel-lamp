@@ -42,7 +42,12 @@ var Module = new function() {
 
 			// Register the service
 			socket.emit('service', {name:argv.service, timeout:10000});
+			socket.emit('join', argv.service);
 
+		});
+
+		socket.on('color-changed', function(data) {
+			console.log('I changed color');
 		});
 
 		socket.on('colorize', function(data, fn) {
@@ -60,7 +65,7 @@ var Module = new function() {
 			}
 
 			promise.then(function() {
-				socket.emit('broadcast', argv.service, 'color-changed', data);
+				socket.emit('color-changed', data);
 
 				if (isFunction(fn))
 					fn({status:'OK'});
