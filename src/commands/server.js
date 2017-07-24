@@ -66,7 +66,7 @@ var Module = new function() {
 
 			promise.then(function() {
 				console.log('Bradcasting!');
-				socket.emit('broadcast', 'color-changed', data);
+				socket.emit('broadcast', argv.service, 'color-changed', data);
 
 				if (isFunction(fn))
 					fn({status:'OK'});
