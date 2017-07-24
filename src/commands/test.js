@@ -30,7 +30,8 @@ var Module = new function() {
 
 		try {
 			console.log(argv);
-			var socket = require('socket.io-client')(argv.url + '/neopixel-lamp');
+			var io = require('socket.io-client')(argv.url);
+			var socket = io.of('/neopixel-lamp');
 
 			function loop() {
 				var options = {};
@@ -49,7 +50,7 @@ var Module = new function() {
 
 			socket.on('disconnect', function() {
 				console.log('Disconnected!');
-				socket = require('socket.io-client')(argv.url + '/neopixel-lamp');
+				socket = io.of('/neopixel-lamp');
 			});
 
 			socket.on('connect', function(data) {
