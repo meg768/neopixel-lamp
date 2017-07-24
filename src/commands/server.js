@@ -35,7 +35,7 @@ var Module = new function() {
 		prefixLogs();
 
 		var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
-		var socket = require('socket.io-client')(argv.url);
+		var socket = require('socket.io-client')(argv.url + '/foo');
 
 		socket.on('connect', function(data) {
 			debug('Connected to socket server.');
