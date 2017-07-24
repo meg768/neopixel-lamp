@@ -30,7 +30,6 @@ var Module = new function() {
 
 		try {
 
-
 			var socket = require('socket.io-client')(argv.url + '/neopixel-lamp');
 
 			function loop() {
@@ -50,18 +49,6 @@ var Module = new function() {
 
 			socket.on('disconnect', function() {
 				console.log('Disconnected!');
-				delete socket;
-				socket = require('socket.io-client')(argv.url + '/neopixel-lamp');
-
-				socket.on('connect', function(data) {
-					debug('Connected to socket server.');
-
-					// Register the service
-					//socket.emit('join', argv.service);
-
-					loop();
-
-				});
 			});
 
 			socket.on('connect', function(data) {
