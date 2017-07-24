@@ -52,6 +52,7 @@ var Module = new function() {
 				console.log('Disconnected!');
 				//socket = require('socket.io-client')(argv.url + '/neopixel-lamp');
 
+/*
 				socket.on('connect', function(data) {
 					debug('Connected to socket server.');
 
@@ -61,7 +62,7 @@ var Module = new function() {
 					loop();
 
 				});
-
+*/
 			});
 
 			socket.on('connect', function(data) {
