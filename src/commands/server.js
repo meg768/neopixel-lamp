@@ -67,7 +67,7 @@ var Module = new function() {
 
 			socket.on('disconnect', function() {
 				debug('Disconnected from socket server.');
-				io.connect('http://app-o.se/neopixel-lamp-service');
+				registerService();
 
 			});
 
