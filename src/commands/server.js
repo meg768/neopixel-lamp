@@ -54,7 +54,7 @@ var Module = new function() {
 
 		registerService().then(function() {
 			var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
-			var socket = io('http://app-o.se/neopixel-lamp-service');
+			var socket = io.connect('http://app-o.se/neopixel-lamp-service');
 
 
 			socket.on('connect', function() {
@@ -67,7 +67,7 @@ var Module = new function() {
 
 			socket.on('disconnect', function() {
 				debug('Disconnected from socket server.');
-
+				io.connect('http://app-o.se/neopixel-lamp-service');
 
 			});
 
