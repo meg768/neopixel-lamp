@@ -33,6 +33,7 @@ var Module = new function() {
 
 	function registerService() {
 
+		return Promise.resolve();
 		return new Promise(function(resolve, reject) {
 			var socket = io('http://app-o.se/services');
 
