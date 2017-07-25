@@ -34,7 +34,7 @@ var Module = new function() {
 
 		var socket = require('socket.io-client')('http://app-o.se/services');
 
-		socket.on('connect', function(socket) {
+		socket.on('connect', function() {
 
 			console.log('Registerring service');
 			socket.emit('register-service', 'neopixel-lamp-service', 'neopixel-lamp', ["colorize"], ['color-changed']);
