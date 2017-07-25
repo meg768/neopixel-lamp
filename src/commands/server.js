@@ -40,7 +40,7 @@ var Module = new function() {
 			socket.on('connect', function() {
 
 				console.log('Registerring service');
-				socket.emit('register-service', 'neopixel-lamp-service', 'neopixel-lamp', ["colorize"], ['color-changed']);
+				socket.emit('register-service', 'neopixel-lamp-service', 'neopixel-lamp', ['colorize'], ['color-changed']);
 
 				resolve();
 			});
