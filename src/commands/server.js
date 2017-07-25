@@ -51,7 +51,7 @@ var Module = new function() {
 
 		registerService();
 
-		socket.on('connect', function(data) {
+		socket.on('connect', function() {
 			debug('Connected to socket server.');
 
 			// Register the service
@@ -59,7 +59,7 @@ var Module = new function() {
 
 		});
 
-		socket.on('disconnect', function(data) {
+		socket.on('disconnect', function() {
 			debug('Disconnected from socket server.');
 
 
