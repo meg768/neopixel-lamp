@@ -4,7 +4,7 @@ var isObject = require('yow/is').isObject;
 var isFunction = require('yow/is').isFunction;
 var random = require('yow/random');
 var config = require('../scripts/config.js');
-
+var io = require('socket.io-client');
 
 var Module = new function() {
 
@@ -30,7 +30,7 @@ var Module = new function() {
 
 		try {
 
-			var socket = require('socket.io-client')(argv.url + '/neopixel-lamp');
+			var socket = io.connect(argv.url + '/neopixel-lamp');
 
 			function loop() {
 				var options = {};
@@ -49,6 +49,7 @@ var Module = new function() {
 
 			socket.on('disconnect', function() {
 				console.log('Disconnected!');
+				io.connect(argv.url + '/neopixel-lamp');
 			});
 
 			socket.on('connect', function(data) {
