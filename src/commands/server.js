@@ -35,13 +35,13 @@ var Module = new function() {
 		prefixLogs();
 
 		var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
-		var socket = require('socket.io-client')(argv.url + '/services');
+		var socket = require('socket.io-client')(argv.url + '/' + argv.service);
 
 		socket.on('connect', function(data) {
 			debug('Connected to socket server.');
 
 			// Register the service
-			socket.emit('service', 'neopixel-lamp', ['colorize'], {timeout:10000});
+			//socket.emit('service', 'neopixel-lamp', ['colorize'], {timeout:10000});
 
 		});
 
