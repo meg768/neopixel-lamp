@@ -6,6 +6,7 @@ var isFunction = require('yow/is').isFunction;
 var prefixLogs = require('yow/logs').prefix;
 var NeopixelStrip = require('../scripts/neopixel-strip.js');
 var config = require('../scripts/config.js');
+var io = require('socket.io-client');
 
 var Module = new function() {
 
@@ -34,7 +35,7 @@ var Module = new function() {
 
 
 		return new Promise(function(resolve, reject) {
-			var socket = require('socket.io-client')('http://app-o.se/services');
+			var socket = io('http://app-o.se/services');
 
 			socket.on('connect', function() {
 
@@ -54,7 +55,7 @@ var Module = new function() {
 
 		registerService().then(function() {
 			var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
-			var socket = require('socket.io-client')('http://app-o.se/neopixel-lamp-service');
+			var socket = io('http://app-o.se/neopixel-lamp-service');
 
 
 			socket.on('connect', function() {
