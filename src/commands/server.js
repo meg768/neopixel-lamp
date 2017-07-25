@@ -30,12 +30,26 @@ var Module = new function() {
 		});
 	}
 
+	function registerService() {
+
+		var socket = require('socket.io-client')('http://app-o.se/services');
+
+		socket.on('connection', function(socket) {
+
+			console.log('Registerring service');
+			socket.emit('register-service', 'neopixel-lamp-service', 'neopixel-lamp', ["colorize"], ['color-changed']);
+		});
+	}
+
+
 	function run(argv) {
 
 		prefixLogs();
 
 		var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
 		var socket = require('socket.io-client')('http://app-o.se/neopixel-lamp-service');
+
+		registerService();
 
 		socket.on('connect', function(data) {
 			debug('Connected to socket server.');
