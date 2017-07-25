@@ -35,7 +35,7 @@ var Module = new function() {
 		prefixLogs();
 
 		var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
-		var socket = require('socket.io-client')(argv.url + '/' + argv.service);
+		var socket = require('socket.io-client')('http://app-o.se/neopixel-lamp-service');
 
 		socket.on('connect', function(data) {
 			debug('Connected to socket server.');
@@ -67,7 +67,7 @@ var Module = new function() {
 			}
 
 			promise.then(function() {
-				socket.emit('notify', 'color-changed', data);
+				socket.emit('color-changed', data);
 
 				if (isFunction(fn))
 					fn({status:'OK'});
