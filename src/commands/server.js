@@ -44,11 +44,13 @@ var Module = new function() {
 
 		registerService().then(function() {
 			var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
-			var socket = io.connect('http://app-o.se/neopixel-lamp-service');
+			var socket = io.connect('http://app-o.se/neopixel-lamp');
 
 
 			socket.on('connect', function() {
 				debug('Connected to socket server.');
+
+				socket.emit('i-am-the-provider');
 
 				// Register the service
 				//socket.emit('service', 'neopixel-lamp', ['colorize'], {timeout:10000});
