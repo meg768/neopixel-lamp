@@ -32,12 +32,18 @@ var Module = new function() {
 
 	function registerService() {
 
-		var socket = require('socket.io-client')('http://app-o.se/services');
 
-		socket.on('connect', function() {
+		return new Promise(function(resolve, reject) {
+			var socket = require('socket.io-client')('http://app-o.se/services');
 
-			console.log('Registerring service');
-			socket.emit('register-service', 'neopixel-lamp-service', 'neopixel-lamp', ["colorize"], ['color-changed']);
+			socket.on('connect', function() {
+
+				console.log('Registerring service');
+				socket.emit('register-service', 'neopixel-lamp-service', 'neopixel-lamp', ["colorize"], ['color-changed']);
+
+				resolve();
+			});
+
 		});
 	}
 
@@ -46,53 +52,56 @@ var Module = new function() {
 
 		prefixLogs();
 
-		var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
-		var socket = require('socket.io-client')('http://app-o.se/neopixel-lamp-service');
-
-		registerService();
-
-		socket.on('connect', function() {
-			debug('Connected to socket server.');
-
-			// Register the service
-			//socket.emit('service', 'neopixel-lamp', ['colorize'], {timeout:10000});
-
-		});
-
-		socket.on('disconnect', function() {
-			debug('Disconnected from socket server.');
+		registerService().then(function() {
+			var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
+			var socket = require('socket.io-client')('http://app-o.se/neopixel-lamp-service');
 
 
-		});
+			socket.on('connect', function() {
+				debug('Connected to socket server.');
 
+				// Register the service
+				//socket.emit('service', 'neopixel-lamp', ['colorize'], {timeout:10000});
 
-		socket.on('colorize', function(data, fn) {
-
-			var promise = Promise.resolve();
-
-			if (data.transition == 'fade') {
-				promise = strip.fadeToColor(data);
-			}
-			else if (data.transition == 'wipe') {
-				promise = strip.wipeToColor(data);
-			}
-			else {
-				promise = strip.setToColor(data);
-			}
-
-			promise.then(function() {
-				socket.emit('color-changed', data);
-
-				if (isFunction(fn))
-					fn({status:'OK'});
-			})
-
-			.catch(function(error) {
-				console.error(error);
-
-				if (isFunction(fn))
-					fn({error: error.message});
 			});
+
+			socket.on('disconnect', function() {
+				debug('Disconnected from socket server.');
+
+
+			});
+
+
+			socket.on('colorize', function(data, fn) {
+
+				var promise = Promise.resolve();
+
+				if (data.transition == 'fade') {
+					promise = strip.fadeToColor(data);
+				}
+				else if (data.transition == 'wipe') {
+					promise = strip.wipeToColor(data);
+				}
+				else {
+					promise = strip.setToColor(data);
+				}
+
+				promise.then(function() {
+					socket.emit('color-changed', data);
+
+					if (isFunction(fn))
+						fn({status:'OK'});
+				})
+
+				.catch(function(error) {
+					console.error(error);
+
+					if (isFunction(fn))
+						fn({error: error.message});
+				});
+
+			});
+
 
 		});
 
