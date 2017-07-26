@@ -19,6 +19,7 @@ module.exports = function NeopixelStrip(options) {
 	const CMD_SET_TO_COLOR  = 0x11;
 	const CMD_FADE_TO_COLOR = 0x12;
 	const CMD_WIPE_TO_COLOR = 0x13;
+	const CMD_RESET         = 0x14;
 
 	var _this          = this;         // That
 	var _debug         = 1;            // Output log messages to console?
@@ -44,6 +45,12 @@ module.exports = function NeopixelStrip(options) {
 		});
 	}
 
+	_this.reset = function() {
+
+		debug('Resetting...');
+
+		return _this.send([CMD_RESET]);
+	}
 
 	_this.setToColor = function(options) {
 
