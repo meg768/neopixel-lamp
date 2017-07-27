@@ -38,7 +38,7 @@ var Module = new function() {
 				{red: 0, green:32, blue: 0},
 				{red: 0, green: 0, blue:32},
 				{red:32, green:32, blue: 0}
-			}
+			];
 
 			function loop() {
 				var options = {};
