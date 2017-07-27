@@ -47,7 +47,7 @@ var Module = new function() {
 				options.duration   = 1000;
 
 				var params = {};
-				extend(params, colors);
+				extend(params, colors[0]);
 				extend(params, options);
 
 				socket.emit('colorize', params, function(data) {
