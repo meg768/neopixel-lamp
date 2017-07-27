@@ -36,9 +36,9 @@ var Module = new function() {
 
 			function loop() {
 				var options = {};
-				options.red = random([0, 128, 256]);
-				options.green = random([0, 128, 256]);
-				options.blue = random([0, 128, 256]);
+				options.red = random([0, 32]);
+				options.green = random([0, 32]);
+				options.blue = random([0, 32]);
 				options.segment = index % 4;
 				options.transition = 'fade';
 				options.duration = 1000;
