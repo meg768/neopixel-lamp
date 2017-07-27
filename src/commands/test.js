@@ -3,6 +3,7 @@ var sprintf = require('yow/sprintf');
 var isObject = require('yow/is').isObject;
 var isFunction = require('yow/is').isFunction;
 var random = require('yow/random');
+var extend  = require('yow/extend');
 var config = require('../scripts/config.js');
 var io = require('socket.io-client');
 
@@ -31,8 +32,36 @@ var Module = new function() {
 		try {
 
 			var socket = io.connect(argv.url + '/neopixel-lamp');
+			var index = 0;
+			var colors = [
+				{red:32, green: 0, blue: 0},
+				{red: 0, green:32, blue: 0},
+				{red: 0, green: 0, blue:32},
+				{red:32, green:32, blue: 0}
+			}
 
 			function loop() {
+				var options = {};
+				options.segment    = index;
+				options.transition = 'fade';
+				options.duration   = 1000;
+
+				var params = {};
+				extend(params, colors);
+				extend(params, options);
+
+				socket.emit('colorize', params, function(data) {
+					console.log('Reply', data);
+
+					colors.push(colors.shift());
+
+					index = (index + 1) % 4;
+					setTimeout(loop, data.error ? 5000 : 0);
+				});
+
+			}
+
+			function loopX() {
 				var options = {};
 				options.red = random([0, 128, 256]);
 				options.green = random([0, 128, 256]);
