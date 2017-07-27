@@ -32,9 +32,30 @@ var Module = new function() {
 		try {
 
 			var socket = io.connect(argv.url + '/neopixel-lamp');
+			var bars = [0, 0, 0, 0];
 			var index = 0;
 
+			var colors = [
+				{red:16, green:0, blue:0},
+				{red:0, green:16, blue:0},
+				{red:0, green:0, blue:16}
+			];
+
 			function loop() {
+				var options = {};
+				options.segment = index % 4;
+				options.transition = 'fade';
+				options.duration = 1000;
+				extend(options, colors[index % 3]);
+				socket.emit('colorize', options, function(data) {
+					console.log('Reply', data);
+					index = (index + 1) % 4;
+					setTimeout(loop, data.error ? 5000 : 0);
+				});
+
+			}
+
+			function loopX() {
 				var options = {};
 				options.red = random([0, 32]);
 				options.green = random([0, 32]);
