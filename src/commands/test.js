@@ -53,7 +53,7 @@ var Module = new function() {
 					console.log('Reply', data);
 					index = (index + 1) % 4;
 					colorIndex = (colorIndex + 1) % 3;
-					setTimeout(loop, data.error ? 5000 : 300);
+					setTimeout(loop, data.error ? 5000 : 500);
 				});
 
 			}
