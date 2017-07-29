@@ -3,9 +3,6 @@
 #include "neopixel-strip.h"
 #include "blinker.h"
 
-class App;
-
-
 const int APP_I2C_ADDRESS  = 0x26;
 const int APP_NEOPIXEL_PIN = 4;
 const int APP_STRIP_LENGTH = 32;
@@ -24,7 +21,7 @@ const int ERR_PARAMETER_MISSING = 2;
 const int ERR_NOT_INITIALIZED   = 3;
 const int ERR_INVALID_COMMAND   = 4;
 
-static App *_app = NULL;
+static void *_app = NULL;
 
 class App {
 
@@ -34,20 +31,20 @@ class App {
 
             _app          = this;
             _status       = ACK;
-            _loop         = 0;
             _bufferIndex  = 0;
             _bufferLength = 0;
+            _loop         = 0;
             
             memset(_buffer, 0, sizeof(_buffer));
         }
 
 
         static void onReceiveService(int bytes) {
-            return _app->onReceive(bytes);
+            return ((App *)_app)->onReceive(bytes);
         }
 
         static void onRequestService() {
-            return _app->onRequest();
+            return ((App *)_app)->onRequest();
         }
         
         void setup() {
@@ -135,8 +132,8 @@ class App {
 
         void loop() {
 
-            _hartBeat.toggleState();
-
+            if ((_loop++ % 5000) == 0)
+                _hartBeat.toggleState();
 
             if (available()) {
                 _busy.setState(HIGH);
@@ -237,11 +234,11 @@ class App {
         NeopixelStrip _strip;
         Blinker _hartBeat, _error, _busy, _debug1, _debug2;
 
-        uint8_t _buffer[32]; 
-        int _bufferIndex, _bufferLength;
+        volatile uint8_t _buffer[32]; 
+        volatile int _bufferIndex, _bufferLength;
     
         volatile int _status;
-        volatile uint32_t _loop;
+        volatile int _loop;
 
 };
 
