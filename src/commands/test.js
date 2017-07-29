@@ -46,14 +46,14 @@ var Module = new function() {
 				var options = {};
 				options.segment = index % 4;
 				options.transition = 'fade';
-				options.duration = 500;
+				options.duration = 100;
 				extend(options, colors[colorIndex % 3]);
 
 				socket.emit('colorize', options, function(data) {
 					console.log('Reply', data);
 					index = (index + 1) % 4;
 					colorIndex = (colorIndex + 1) % 3;
-					setTimeout(loop, data.error ? 5000 : 100);
+					setTimeout(loop, data.error ? 5000 : 200);
 				});
 
 			}
