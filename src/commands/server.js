@@ -65,7 +65,7 @@ var Module = new function() {
 			socket.on('colorize', function(options, fn) {
 
 				strip.colorize(options).then(function() {
-					socket.emit('color-changed', data);
+					socket.emit('color-changed', options);
 
 					if (isFunction(fn))
 						fn({status:'OK'});
