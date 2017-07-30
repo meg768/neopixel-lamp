@@ -110,6 +110,7 @@ module.exports = function NeopixelStrip(options) {
 					bytes = [CMD_FADE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF];
 					break;
 				}
+
 				case 'wipe': {
 					bytes = [CMD_WIPE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF];
 					break;
@@ -125,7 +126,7 @@ module.exports = function NeopixelStrip(options) {
 
 			_this.send(bytes).then(function() {
 				var endTime = new Date();
-				resolve({offset:offset, length:length, duration:duration, red:red, green:green, blue:blue, time:endTime - startTime});
+				resolve({offset:offset, length:length, duration:duration, color:{red:red, green:green, blue:blue}, time:endTime - startTime});
 			})
 			.catch(function(error){
 				reject(error);
