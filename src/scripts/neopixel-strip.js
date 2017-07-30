@@ -1,4 +1,7 @@
 var I2C = require('i2c-bus');
+var Color = require('color');
+
+var isString = require('yow/is').isString;
 
 
 module.exports = function NeopixelStrip(options) {
@@ -51,6 +54,46 @@ module.exports = function NeopixelStrip(options) {
 
 		return _this.send([CMD_RESET]);
 	}
+
+	_this.colorize = function(options) {
+
+		var red   = 0;
+		var green = 0;
+		var blue  = 0;
+
+		var length   = options.segment == undefined ? _length : _segmentLength;
+		var offset   = options.segment == undefined ? 0 : options.segment * _segmentLength;
+		var duration = options.duration == undefined ? 300 : options.duration;
+
+		if (isString(options.color)) {
+			var color = Color(options.color);
+			console.log('Color', color);
+			red   = color.red();
+			green = color.green();
+			blue  = color.blue();
+		}
+		else {
+			red = options.red != undefined ? options.red : red;
+			green = options.green != undefined ? options.green : green;
+			blue = options.blue != undefined ? options.blue : blue;
+
+		}
+
+		if (options.color) {
+			red = options.color.red != undefined ? options.color.red : red;
+		}
+
+		switch(options.transition) {
+			case 'fade': {
+				return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]);
+			}
+			case 'wipe': {
+				return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, duration]);
+			}
+		}
+
+		return _this.send([CMD_SET_TO_COLOR, offset, length, red, green, blue]);
+	};
 
 	_this.setToColor = function(options) {
 

@@ -50,10 +50,8 @@ var Module = new function() {
 			socket.on('connect', function() {
 				debug('Connected to socket server.');
 
-				socket.emit('i-am-the-provider');
-
 				// Register the service
-				//socket.emit('service', 'neopixel-lamp', ['colorize'], {timeout:10000});
+				socket.emit('i-am-the-provider');
 
 			});
 
@@ -63,37 +61,10 @@ var Module = new function() {
 
 			});
 
-			socket.on('reset', function(data, fn) {
-
-				strip.reset().then(function() {
-					if (isFunction(fn))
-						fn({status:'OK'});
-				})
-
-				.catch(function(error) {
-					console.error(error);
-
-					if (isFunction(fn))
-						fn({error: error.message});
-				});
-
-			});
 
 			socket.on('colorize', function(data, fn) {
 
-				var promise = Promise.resolve();
-
-				if (data.transition == 'fade') {
-					promise = strip.fadeToColor(data);
-				}
-				else if (data.transition == 'wipe') {
-					promise = strip.wipeToColor(data);
-				}
-				else {
-					promise = strip.setToColor(data);
-				}
-
-				promise.then(function() {
+				strip.colorize(options).then(function() {
 					socket.emit('color-changed', data);
 
 					if (isFunction(fn))
