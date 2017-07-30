@@ -2,6 +2,7 @@ var I2C = require('i2c-bus');
 var Color = require('color');
 
 var isString = require('yow/is').isString;
+var isObject = require('yow/is').isObject;
 
 
 module.exports = function NeopixelStrip(options) {
@@ -65,7 +66,7 @@ module.exports = function NeopixelStrip(options) {
 		var offset   = options.segment == undefined ? 0 : options.segment * _segmentLength;
 		var duration = options.duration == undefined ? 300 : options.duration;
 
-		if (isString(options.color)) {
+		if (options.color != undefined) {
 			try {
 				// Try to parse color
 				var color = Color(options.color);
@@ -81,8 +82,15 @@ module.exports = function NeopixelStrip(options) {
 			}
 			catch(error) {
 				return Promise.reject(error);
-
 			}
+		}
+		else if (isObject(options.color)) {
+			var color = options.color;
+
+			red = color.red != undefined ? color.red : red;
+			green = color.green != undefined ? color.green : green;
+			blue = color.blue != undefined ? color.blue : blue;
+
 		}
 		else {
 			red = options.red != undefined ? options.red : red;
