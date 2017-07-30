@@ -44,7 +44,7 @@ var Module = new function() {
 
 			function loop() {
 				var options = {};
-				options.segment = index % 4;
+				options.segment = 0; //index % 4;
 				options.transition = 'fade';
 				options.duration = 2000;
 				extend(options, colors[colorIndex % 3]);
