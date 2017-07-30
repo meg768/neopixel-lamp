@@ -41,6 +41,7 @@ module.exports = function NeopixelStrip(options) {
 	_this.pause = function(ms) {
 
 		return new Promise(function(resolve, reject) {
+			ms = 1000;
 			console.log('Pausing for ', ms, 'ms');
 			setTimeout(function() {
 				console.log('Done pausing');
