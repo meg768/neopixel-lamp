@@ -153,8 +153,6 @@ module.exports = function NeopixelStrip(options) {
 				return Promise.resolve(NAK);
 			})
 			.then(function(status) {
-				console.log('Reply:', status);
-
 				if (status == ACK) {
 					return Promise.resolve();
 				}
@@ -175,7 +173,6 @@ module.exports = function NeopixelStrip(options) {
 				resolve();
 			})
 			.catch(function(error) {
-				console.log('****************************');
 				reject(error);
 			});
 
