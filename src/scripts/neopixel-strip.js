@@ -67,40 +67,39 @@ module.exports = function NeopixelStrip(options) {
 		var duration = options.duration == undefined ? 300 : options.duration;
 
 		if (options.color != undefined) {
-			try {
-				// Try to parse color
-				var color = Color(options.color);
-
-				console.log('Color', color);
-				color = color.rgb();
-				console.log('RGB Color', color);
-
-				red   = color.red();
-				green = color.green();
-				blue  = color.blue();
-
-			}
-			catch(error) {
-				return Promise.reject(error);
-			}
-		}
-		else if (isObject(options.color)) {
 			var color = options.color;
 
-			red = color.red != undefined ? color.red : red;
-			green = color.green != undefined ? color.green : green;
-			blue = color.blue != undefined ? color.blue : blue;
+			if (color.red != undefined && color.green != undefined && color.blue != undefined) {
+				red   = color.red;
+				green = color.green;
+				blue  = color.blue;
+			}
+			else {
+				try {
+					// Try to parse color
+					var color = Color(color);
+
+					console.log('Color', color);
+					color = color.rgb();
+					console.log('RGB Color', color);
+
+					red   = color.red();
+					green = color.green();
+					blue  = color.blue();
+
+				}
+				catch(error) {
+					return Promise.reject(error);
+				}
+
+			}
 
 		}
 		else {
-			red = options.red != undefined ? options.red : red;
+			red   = options.red != undefined ? options.red : red;
 			green = options.green != undefined ? options.green : green;
-			blue = options.blue != undefined ? options.blue : blue;
+			blue  = options.blue != undefined ? options.blue : blue;
 
-		}
-
-		if (options.color) {
-			red = options.color.red != undefined ? options.color.red : red;
 		}
 
 		debug('Setting to color', [red, green, blue]);
