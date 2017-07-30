@@ -61,9 +61,9 @@ var Module = new function() {
 			function showClock() {
 
 				console.log('Displaying clock!');
-				
+
 				var now = new Date();
-				var minutes = ((now.getHour() % 12) * 60) * now.getMinute()
+				var minutes = ((now.getHours() % 12) * 60) * now.getMinutes()
 				var hue = minutes / 720;
 
 				var options = {};
