@@ -101,6 +101,10 @@ module.exports = function NeopixelStrip(options) {
 
 			}
 
+			red    = Math.round(red);
+			green  = Math.round(green);
+			blue   = Math.round(blue);
+
 			debug('Setting to color', [red, green, blue]);
 
 			var bytes = [];
