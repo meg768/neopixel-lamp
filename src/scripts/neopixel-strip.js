@@ -66,11 +66,17 @@ module.exports = function NeopixelStrip(options) {
 		var duration = options.duration == undefined ? 300 : options.duration;
 
 		if (isString(options.color)) {
-			var color = Color(options.color);
-			console.log('Color', color);
-			red   = color.red();
-			green = color.green();
-			blue  = color.blue();
+			try {
+				var color = Color(options.color);
+				console.log('Color', color);
+				red   = color.red();
+				green = color.green();
+				blue  = color.blue();
+
+			}
+			catch(error) {
+				Promise.reject(error.message);
+			}
 		}
 		else {
 			red = options.red != undefined ? options.red : red;
