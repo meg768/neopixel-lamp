@@ -48,6 +48,7 @@ var Module = new function() {
 
 			function disableClock() {
 				if (timer != undefined) {
+					console.log('Disabling clock...');
 					clearTimeout(timer);
 					timer = undefined;
 				}
@@ -70,7 +71,7 @@ var Module = new function() {
 				options.transition = 'fade';
 				options.duration   = 100;
 				options.color      = {h:hue, s:100, l:50};
-
+				console.log(options);
 				strip.colorize(options);
 			}
 
