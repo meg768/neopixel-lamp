@@ -55,7 +55,7 @@ var Module = new function() {
 
 			function enableClock() {
 				disableClock();
-				timer = setTimeout(showClock, 1000);
+				timer = setInterval(showClock, 1000);
 			}
 
 			function showClock() {
