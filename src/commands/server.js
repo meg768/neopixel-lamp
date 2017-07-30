@@ -65,7 +65,7 @@ var Module = new function() {
 
 				var now = new Date();
 				var minutes = ((now.getHours() % 12) * 60) + now.getMinutes();
-				var hue = (minutes / 720);
+				var hue = 100 * (minutes / 720);
 
 				var options = {};
 				options.transition = 'fade';
