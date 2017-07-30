@@ -94,6 +94,7 @@ var Module = new function() {
 				}
 
 				promise.then(function() {
+					console.log('Done!');
 					socket.emit('color-changed', data);
 
 					if (isFunction(fn))
