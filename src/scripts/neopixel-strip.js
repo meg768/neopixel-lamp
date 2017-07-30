@@ -46,7 +46,7 @@ module.exports = function NeopixelStrip(options) {
 			setTimeout(function() {
 				console.log('Done pausing');
 				resolve();
-			}, ms);
+			}, 1000);
 		});
 	}
 
