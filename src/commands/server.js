@@ -64,8 +64,8 @@ var Module = new function() {
 				console.log('Displaying clock!');
 
 				var now = new Date();
-				var minutes = ((now.getHours() % 12) * 60) * now.getMinutes()
-				var hue = minutes / 720;
+				var minutes = ((now.getHours() % 12) * 60) * now.getMinutes();
+				var hue = (minutes / 720) * 100;
 
 				var options = {};
 				options.transition = 'fade';
