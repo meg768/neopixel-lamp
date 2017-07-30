@@ -64,11 +64,15 @@ var Module = new function() {
 
 			socket.on('colorize', function(options, fn) {
 
+				var startTime = new Date();
+
 				strip.colorize(options).then(function() {
 					socket.emit('color-changed', options);
 
+					var endTime = new Date();
+
 					if (isFunction(fn))
-						fn({status:'OK'});
+						fn({status:'OK', time: endTime - startTime});
 				})
 
 				.catch(function(error) {
