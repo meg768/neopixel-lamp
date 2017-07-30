@@ -32,19 +32,48 @@ var Module = new function() {
 	}
 
 	function registerService() {
-
 		return Promise.resolve();
-
 	}
 
 
 	function run(argv) {
+
+		var timer = undefined;
 
 		prefixLogs();
 
 		registerService().then(function() {
 			var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
 			var socket = io.connect(argv.service);
+
+			function disableClock() {
+				if (timer != undefined) {
+					clearTimeout(timer);
+					timer = undefined;
+				}
+			}
+
+			function enableClock() {
+				disableClock();
+				timer = setTimeout(showClock, 1000);
+			}
+
+			function showClock() {
+
+				console.log('Displaying clock!');
+				
+				var now = new Date();
+				var minutes = ((now.getHour() % 12) * 60) * now.getMinute()
+				var hue = minutes / 720;
+
+				var options = {};
+				options.transition = 'fade';
+				options.color      = color;
+				options.duration   = 100;
+				options.color = {h:hue, s:100, l:50};
+
+				strip.colorize(options);
+			}
 
 
 			socket.on('connect', function() {
@@ -53,16 +82,18 @@ var Module = new function() {
 				// Register the service
 				socket.emit('i-am-the-provider');
 
+				enableClock();
+
 			});
 
 			socket.on('disconnect', function() {
 				debug('Disconnected from socket server.');
-				registerService();
-
+				disableClock();
 			});
 
 
 			socket.on('colorize', function(options, fn) {
+				disableClock();
 
 				strip.colorize(options).then(function(reply) {
 					socket.emit('color-changed', options);
