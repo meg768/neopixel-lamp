@@ -38,7 +38,7 @@ var Module = new function() {
 
 			var colors = [
 				{red:128, green:0, blue:0},
-				{red:0, green:128, blue:0},
+				{red:0, green:0, blue:0},
 				{red:0, green:0, blue:128}
 			];
 
@@ -47,7 +47,7 @@ var Module = new function() {
 				options.segment = 0; //index % 4;
 				options.transition = 'fade';
 				options.duration = 2000;
-				extend(options, colors[colorIndex % 3]);
+				extend(options, colors[colorIndex % 2]);
 
 				socket.emit('colorize', options, function(data) {
 					console.log('Reply', data);
