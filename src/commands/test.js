@@ -38,13 +38,13 @@ var Module = new function() {
 
 			var colors = [
 				{red:128, green:0, blue:0},
-				{red:0, green:0, blue:0},
+				{red:0, green:128, blue:0},
 				{red:0, green:0, blue:128}
 			];
 
 			function loop() {
 				var options = {};
-				options.segment = 0; //index % 4;
+				options.segment = index % 4;
 				options.transition = 'fade';
 				options.duration = 1000;
 				extend(options, colors[colorIndex % 2]);
@@ -53,7 +53,7 @@ var Module = new function() {
 					console.log('Reply', data);
 					index = (index + 1) % 4;
 					colorIndex = (colorIndex + 1) % 3;
-					setTimeout(loop, data.error ? 5000 : 200);
+					setTimeout(loop, data.error ? 5000 : 100);
 				});
 
 			}
