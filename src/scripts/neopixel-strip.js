@@ -95,6 +95,8 @@ module.exports = function NeopixelStrip(options) {
 			red = options.color.red != undefined ? options.color.red : red;
 		}
 
+		debug('Setting to color', [red, green, blue]);
+
 		switch(options.transition) {
 			case 'fade': {
 				return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]);
