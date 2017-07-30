@@ -79,9 +79,8 @@ module.exports = function NeopixelStrip(options) {
 					// Try to parse color
 					var color = Color(color);
 
-					console.log('Color', color);
+					// Convert to rgb
 					color = color.rgb();
-					console.log('RGB Color', color);
 
 					red   = color.red();
 					green = color.green();
@@ -109,7 +108,7 @@ module.exports = function NeopixelStrip(options) {
 				return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]);
 			}
 			case 'wipe': {
-				return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, duration]);
+				return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]]);
 			}
 		}
 
