@@ -57,106 +57,82 @@ module.exports = function NeopixelStrip(options) {
 
 	_this.colorize = function(options) {
 
-		var red   = 0;
-		var green = 0;
-		var blue  = 0;
+		return new Promise(function(resolve, reject) {
+			var red   = 0;
+			var green = 0;
+			var blue  = 0;
 
-		var length   = options.segment == undefined ? _length : _segmentLength;
-		var offset   = options.segment == undefined ? 0 : options.segment * _segmentLength;
-		var duration = options.duration == undefined ? 300 : options.duration;
+			var length   = options.segment == undefined ? _length : _segmentLength;
+			var offset   = options.segment == undefined ? 0 : options.segment * _segmentLength;
+			var duration = options.duration == undefined ? 300 : options.duration;
 
-		if (options.color != undefined) {
-			var color = options.color;
+			if (options.color != undefined) {
+				var color = options.color;
 
-			if (color.red != undefined && color.green != undefined && color.blue != undefined) {
-				red   = color.red;
-				green = color.green;
-				blue  = color.blue;
+				if (color.red != undefined && color.green != undefined && color.blue != undefined) {
+					red   = color.red;
+					green = color.green;
+					blue  = color.blue;
+				}
+				else {
+					try {
+						// Try to parse color
+						var color = Color(color);
+
+						// Convert to rgb
+						color = color.rgb();
+
+						red   = color.red();
+						green = color.green();
+						blue  = color.blue();
+
+					}
+					catch(error) {
+						return Promise.reject(error);
+					}
+
+				}
+
 			}
 			else {
-				try {
-					// Try to parse color
-					var color = Color(color);
+				red   = options.red != undefined ? options.red : red;
+				green = options.green != undefined ? options.green : green;
+				blue  = options.blue != undefined ? options.blue : blue;
 
-					// Convert to rgb
-					color = color.rgb();
+			}
 
-					red   = color.red();
-					green = color.green();
-					blue  = color.blue();
+			debug('Setting to color', [red, green, blue]);
 
+			var bytes = [];
+
+			switch(options.transition) {
+				case 'fade': {
+					bytes = [CMD_FADE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF];
+					break;
 				}
-				catch(error) {
-					return Promise.reject(error);
+				case 'wipe': {
+					bytes = [CMD_WIPE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF];
+					break;
 				}
 
+				default: {
+					bytes = [CMD_SET_TO_COLOR, offset, length, red, green, blue];
+					break;
+				}
 			}
 
-		}
-		else {
-			red   = options.red != undefined ? options.red : red;
-			green = options.green != undefined ? options.green : green;
-			blue  = options.blue != undefined ? options.blue : blue;
+			var startTime = new Date();
 
-		}
+			_this.send(bytes).then(function() {
+				var endTime = new Date();
+				resolve({offset:offset, length:length, duration:duration, red:red, green:green, blue:blue, time:endTime - startTime});
+			})
+			.catch(function(error){
+				reject(error);
+			});
 
-		debug('Setting to color', [red, green, blue]);
-
-		switch(options.transition) {
-			case 'fade': {
-				return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]);
-			}
-			case 'wipe': {
-				return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]);
-			}
-		}
-
-		return _this.send([CMD_SET_TO_COLOR, offset, length, red, green, blue]);
+		});
 	};
-
-	_this.setToColor = function(options) {
-
-		debug('Setting to color', options);
-
-		var red    = options.red     == undefined ? 0 : options.red;
-		var green  = options.green   == undefined ? 0 : options.green;
-		var blue   = options.blue    == undefined ? 0 : options.blue;
-		var length = options.segment == undefined ? _length : _segmentLength;
-		var offset = options.segment == undefined ? 0 : options.segment * _segmentLength;
-
-		return _this.send([CMD_SET_TO_COLOR, offset, length, red, green, blue]);
-	}
-
-
-	_this.wipeToColor = function(options) {
-
-		debug('Wiping to color', options);
-
-
-		var red      = options.red      == undefined ? 0 : options.red;
-		var green    = options.green    == undefined ? 0 : options.green;
-		var blue     = options.blue     == undefined ? 0 : options.blue;
-		var length   = options.segment  == undefined ? _length : _segmentLength;
-		var offset   = options.segment  == undefined ? 0 : options.segment * _segmentLength;
-		var duration = options.duration == undefined ? 300 : options.duration;
-
-		return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, duration]);
-	}
-
-	_this.fadeToColor = function(options) {
-
-		debug('Fading to color', options);
-
-		var red      = options.red      == undefined ? 0 : options.red;
-		var green    = options.green    == undefined ? 0 : options.green;
-		var blue     = options.blue     == undefined ? 0 : options.blue;
-		var length   = options.segment  == undefined ? _length : _segmentLength;
-		var offset   = options.segment  == undefined ? 0 : options.segment * _segmentLength;
-		var duration = options.duration == undefined ? 300 : options.duration;
-
-		return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]);
-	}
-
 
 	_this.initialize = function(length) {
 		_length = length;
