@@ -46,7 +46,7 @@ var Module = new function() {
 				var options = {};
 				options.segment = 0; //index % 4;
 				options.transition = 'fade';
-				options.duration = 4000;
+				options.duration = 1000;
 				extend(options, colors[colorIndex % 2]);
 
 				socket.emit('colorize', options, function(data) {
