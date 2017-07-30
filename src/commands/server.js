@@ -56,7 +56,7 @@ var Module = new function() {
 
 			function enableClock() {
 				disableClock();
-				timer = setInterval(showClock, 1000);
+				timer = setInterval(showClock, 10000);
 			}
 
 			function showClock() {
@@ -69,7 +69,7 @@ var Module = new function() {
 				var options = {};
 				options.transition = 'fade';
 				options.duration   = 100;
-				options.color      = {h:hue, s:100, l:50};
+				options.color      = {h:hue, s:100, l:25};
 
 				strip.colorize(options);
 			}
