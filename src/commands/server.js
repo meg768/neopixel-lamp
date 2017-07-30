@@ -62,7 +62,7 @@ var Module = new function() {
 			});
 
 
-			socket.on('colorize', function(data, fn) {
+			socket.on('colorize', function(options, fn) {
 
 				strip.colorize(options).then(function() {
 					socket.emit('color-changed', data);
