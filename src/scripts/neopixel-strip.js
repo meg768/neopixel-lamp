@@ -108,7 +108,7 @@ module.exports = function NeopixelStrip(options) {
 				return _this.send([CMD_FADE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]);
 			}
 			case 'wipe': {
-				return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]]);
+				return _this.send([CMD_WIPE_TO_COLOR, offset, length, red, green, blue, (duration >> 8) & 0xFF, duration & 0xFF]);
 			}
 		}
 

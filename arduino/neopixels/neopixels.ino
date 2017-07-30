@@ -117,7 +117,7 @@ class App {
             return readByte(red) && readByte(green) && readByte(blue);
         }
 
-        int readWord(uint16_t &data) {
+        int readWord(int &data) {
             int high = 0, low = 0;
 
             if (readByte(high) && readByte(low)) {
@@ -195,7 +195,7 @@ class App {
                     if (!readByte(index) || !readByte(length) || !readRGB(red, green, blue))
                         return ERR_INVALID_PARAMETER;
 
-                    if (!readByte(delay))
+                    if (!readWord(delay))
                         return ERR_INVALID_PARAMETER;
 
                     _strip.wipeToColor(index, length, red, green, blue, delay);
@@ -205,16 +205,15 @@ class App {
 
                 case CMD_FADE_TO_COLOR: {
 
-                    int index = 0, length = 0, red = 0, green = 0, blue = 0;
-                    uint16_t speed = 0;
+                    int index = 0, length = 0, red = 0, green = 0, blue = 0, delay = 0;
                     
                     if (!readByte(index) || !readByte(length) || !readRGB(red, green, blue))
                         return ERR_INVALID_PARAMETER;
 
-                    if (!readWord(speed))
+                    if (!readWord(delay))
                         return ERR_INVALID_PARAMETER;
 
-                    _strip.fadeToColor(index, length, red, green, blue, speed);
+                    _strip.fadeToColor(index, length, red, green, blue, delay);
 
                     break;
                 }

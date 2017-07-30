@@ -63,22 +63,24 @@ class NeopixelStrip : public Adafruit_NeoPixel {
             setColor(0, numPixels(), red, green, blue);    
         }
 
-        void wipeToColor(int index, int length, int red, int green, int blue, int wait) {
+        void wipeToColor(int index, int length, int red, int green, int blue, int duration) {
 
             int count = numPixels();
             
             if (index + length > count)
                 length = count - index;
 
+            int pause = (int)(0.9 * (float)duration / (float)length);
+            
             for (int i = 0; i < length; i++) {
                 setPixelColor(index++, red, green, blue);
                 show();
-                delay(wait);
+                delay(pause);
             }
         }
 
-        void wipeToColor(int red, int green, int blue, int wait) {
-            wipeToColor(0, numPixels(), red, green, blue, wait);
+        void wipeToColor(int red, int green, int blue, int duration) {
+            wipeToColor(0, numPixels(), red, green, blue, duration);
         }
 
         void updateLength(int length) {
