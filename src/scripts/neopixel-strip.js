@@ -67,8 +67,13 @@ module.exports = function NeopixelStrip(options) {
 
 		if (isString(options.color)) {
 			try {
+				// Try to parse color
 				var color = Color(options.color);
+
 				console.log('Color', color);
+				color = color.rgb();
+				console.log('RGB Color', color);
+
 				red   = color.red();
 				green = color.green();
 				blue  = color.blue();
