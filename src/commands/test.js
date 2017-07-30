@@ -37,9 +37,9 @@ var Module = new function() {
 			var colorIndex = 0;
 
 			var colors = [
-				{red:16, green:0, blue:0},
-				{red:0, green:16, blue:0},
-				{red:0, green:0, blue:16}
+				{red:128, green:0, blue:0},
+				{red:0, green:128, blue:0},
+				{red:0, green:0, blue:128}
 			];
 
 			function loop() {
