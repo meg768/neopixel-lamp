@@ -65,13 +65,12 @@ var Module = new function() {
 
 				var now = new Date();
 				var hue = (((now.getHours() % 12) * 60) + now.getMinutes()) / 2;
-//				var hue = 100 * (minutes / 720);
 
 				var options = {};
 				options.transition = 'fade';
 				options.duration   = 100;
 				options.color      = {h:hue, s:100, l:50};
-				console.log(options);
+
 				strip.colorize(options);
 			}
 
