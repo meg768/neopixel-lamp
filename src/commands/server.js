@@ -69,7 +69,7 @@ var Module = new function() {
 				var options = {};
 				options.transition = 'fade';
 				options.duration   = 100;
-				options.color      = {h:hue, s:100, l:25};
+				options.color      = {h:hue, s:100, l:5};
 
 				strip.colorize(options);
 			}
