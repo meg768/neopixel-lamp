@@ -24,7 +24,7 @@ module.exports = function NeopixelStrip(options) {
 	var _this          = this;         // That
 	var _debug         = 1;            // Output log messages to console?
 	var _timeout       = 10000;        // Read/write timeout in ms
-	var _retryInterval = 10000;          // Milliseconds to wait before retrying read/write
+	var _retryInterval = 300;          // Milliseconds to wait before retrying read/write
 
 	var _length        = options.length;
 	var _segments      = options.segments;
@@ -41,12 +41,11 @@ module.exports = function NeopixelStrip(options) {
 	_this.pause = function(ms) {
 
 		return new Promise(function(resolve, reject) {
-			ms = 1000;
 			console.log('Pausing for ', ms, 'ms');
 			setTimeout(function() {
 				console.log('Done pausing');
 				resolve();
-			}, 1000);
+			}, ms);
 		});
 	}
 
