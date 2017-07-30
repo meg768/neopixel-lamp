@@ -165,7 +165,7 @@ module.exports = function NeopixelStrip(options) {
 					var now = new Date();
 
 					if (now.getTime() - timestamp.getTime() < _timeout) {
-						_this.pause(_retryInterval).then(function() {
+						return _this.pause(_retryInterval).then(function() {
 							return _this.waitForReply(timestamp);
 						})
 					}
