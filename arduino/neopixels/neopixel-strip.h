@@ -113,7 +113,7 @@ class NeopixelStrip : public Adafruit_NeoPixel {
            
 
                 // Calculate number of steps to be finished in specified time
-                long numSteps = (long)((float)duration * 0.2);
+                long numSteps = (long)(10.0 * (float)duration / (float)length);
 
                 for (long step = 0; step < numSteps; step++) {
 

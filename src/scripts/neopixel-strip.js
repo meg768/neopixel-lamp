@@ -28,7 +28,7 @@ module.exports = function NeopixelStrip(options) {
 	var _this          = this;         // That
 	var _debug         = 1;            // Output log messages to console?
 	var _timeout       = 10000;        // Read/write timeout in ms
-	var _retryInterval = 300;          // Milliseconds to wait before retrying read/write
+	var _retryInterval = 200;          // Milliseconds to wait before retrying read/write
 
 	var _length        = options.length;
 	var _segments      = options.segments;
@@ -52,7 +52,6 @@ module.exports = function NeopixelStrip(options) {
 	_this.reset = function() {
 
 		debug('Resetting...');
-
 		return _this.send([CMD_RESET]);
 	}
 
