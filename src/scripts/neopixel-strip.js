@@ -129,7 +129,7 @@ module.exports = function NeopixelStrip(options) {
 
 			_this.send(bytes).then(function() {
 				var endTime = new Date();
-				resolve({offset:offset, length:length, duration:duration, color:{red:red, green:green, blue:blue}, time:endTime - startTime});
+				resolve({offset:offset, length:length, transition: options.transition, duration:duration, color:{red:red, green:green, blue:blue}, time:endTime - startTime});
 			})
 			.catch(function(error){
 				reject(error);
