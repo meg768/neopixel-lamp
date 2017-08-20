@@ -61,7 +61,7 @@ var Module = new function() {
 			}
 
 			function showClock() {
-
+/*
 
 				// Returns an index of sun brightness 0 - 1, 1 - local zenith, 0 - local nadir
 				function getSolarBrightness(now) {
@@ -73,9 +73,9 @@ var Module = new function() {
 
 					var zenithPosition = suncalc.getPosition(times.solarNoon,  latitude, longitude);
 					var nadirPosition  = suncalc.getPosition(times.nadir,  latitude, longitude);
-					var thisPosition   = suncalc.getPosition(now,  latitude, longitude);
+					var thisPosition   = suncalc.getPosition(now, latitude, longitude);
 
-					return (thisPosition.altitude - nadirPosition.altitude) / (zenithPosition.altitude - nadirPosition.altitude)
+					return (thisPosition.altitude - nadirPosition.altitude) / (zenithPosition.altitude - nadirPosition.altitude);
 				}
 
 				console.log('Displaying clock!');
@@ -94,6 +94,7 @@ var Module = new function() {
 				options.color      = {h:hue, s:100, l:luminance};
 
 				strip.colorize(options);
+				*/
 			}
 
 
