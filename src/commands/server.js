@@ -58,7 +58,7 @@ var Module = new function() {
 			function enableClock() {
 				disableClock();
 				showClock();
-				
+
 				timer = setInterval(showClock, 60000);
 			}
 
@@ -93,7 +93,6 @@ var Module = new function() {
 				options.duration   = 100;
 				options.color      = {h:hue, s:100, l:luminance};
 
-				console.log('Displaying clock:', options);
 				strip.colorize(options);
 			}
 
