@@ -6,6 +6,7 @@ var isFunction = require('yow/is').isFunction;
 var prefixLogs = require('yow/logs').prefix;
 var config = require('../scripts/config.js');
 var io = require('socket.io-client');
+var SkyBightness = require('sky-brightness');
 
 var Module = new function() {
 
@@ -64,7 +65,6 @@ var Module = new function() {
 
 			function showClock() {
 
-				var SkyBightness = require('sky-brightness');
 
 				var sky = new SkyBightness({
 					latitude: 55.7,
