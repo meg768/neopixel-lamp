@@ -61,7 +61,6 @@ var Module = new function() {
 			}
 
 			function showClock() {
-/*
 
 				// Returns an index of sun brightness 0 - 1, 1 - local zenith, 0 - local nadir
 				function getSolarBrightness(now) {
@@ -94,7 +93,6 @@ var Module = new function() {
 				options.color      = {h:hue, s:100, l:luminance};
 
 				strip.colorize(options);
-				*/
 			}
 
 
@@ -145,6 +143,7 @@ var Module = new function() {
 					if (isFunction(fn))
 						fn({error: error.message});
 				});
+			}
 
 
 
