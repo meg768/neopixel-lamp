@@ -64,6 +64,15 @@ var Module = new function() {
 
 			function showClock() {
 
+				var SkyBightness = require('sky-brightness');
+
+				var sky = new SkyBightness({
+					latitude: 55.7,
+					longitude: 13.1833333,
+					time: new Date()
+				});
+
+/*
 				// Returns an index of sun brightness 0 - 1, 1 - local zenith, 0 - local nadir
 				function getSolarBrightness(now) {
 					var suncalc = require('suncalc');
@@ -78,12 +87,12 @@ var Module = new function() {
 
 					return (thisPosition.altitude - nadirPosition.altitude) / (zenithPosition.altitude - nadirPosition.altitude);
 				}
-
+*/
 
 				var now = new Date();
 				var hue = (((now.getHours() % 12) * 60) + now.getMinutes()) / 2;
 
-				var luminance = Math.round(getSolarBrightness(now) * 100);
+				var luminance = Math.round(sky.getPerceptualBrightness() * 100);
 
 				luminance = Math.min(100, luminance);
 				luminance = Math.max(1, luminance);
