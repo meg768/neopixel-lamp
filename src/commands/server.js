@@ -4,7 +4,6 @@ var sprintf = require('yow/sprintf');
 var isObject = require('yow/is').isObject;
 var isFunction = require('yow/is').isFunction;
 var prefixLogs = require('yow/logs').prefix;
-var NeopixelStrip = require('../scripts/neopixel-strip.js');
 var config = require('../scripts/config.js');
 var io = require('socket.io-client');
 
@@ -38,6 +37,8 @@ var Module = new function() {
 
 	function run(argv) {
 
+		var NeopixelStrip = require('../scripts/neopixel-strip.js');
+
 		var timer = undefined;
 
 		prefixLogs();
@@ -56,20 +57,41 @@ var Module = new function() {
 
 			function enableClock() {
 				disableClock();
-				timer = setInterval(showClock, 10000);
+				timer = setInterval(showClock, 60000);
 			}
 
 			function showClock() {
+
+
+				// Returns an index of sun brightness 0 - 1, 1 - local zenith, 0 - local nadir
+				function getSolarBrightness(now) {
+					var suncalc = require('suncalc');
+
+					var latitude = 55.7;
+					var longitude = 13.1833333;
+					var times = suncalc.getTimes(now, latitude, longitude);
+
+					var zenithPosition = suncalc.getPosition(times.solarNoon,  latitude, longitude);
+					var nadirPosition  = suncalc.getPosition(times.nadir,  latitude, longitude);
+					var thisPosition   = suncalc.getPosition(now,  latitude, longitude);
+
+					return (thisPosition.altitude - nadirPosition.altitude) / (zenithPosition.altitude - nadirPosition.altitude)
+				}
 
 				console.log('Displaying clock!');
 
 				var now = new Date();
 				var hue = (((now.getHours() % 12) * 60) + now.getMinutes()) / 2;
 
+				var luminance = Math.round(getSolarBrightness(now) * 100);
+
+				luminance = Math.min(100, luminance);
+				luminance = Math.max(1, luminance);
+
 				var options = {};
 				options.transition = 'fade';
 				options.duration   = 100;
-				options.color      = {h:hue, s:100, l:1};
+				options.color      = {h:hue, s:100, l:luminance};
 
 				strip.colorize(options);
 			}
@@ -91,6 +113,21 @@ var Module = new function() {
 			});
 
 
+			socket.on('enableClock', function(fn) {
+				enableClock();
+
+				if (isFunction(fn))
+					fn({status:'OK'});
+			});
+
+			socket.on('disableClock', function(fn) {
+				disableClock();
+
+				if (isFunction(fn))
+					fn({status:'OK'});
+			});
+
+
 			socket.on('colorize', function(options, fn) {
 				disableClock();
 
@@ -108,7 +145,6 @@ var Module = new function() {
 						fn({error: error.message});
 				});
 
-			});
 
 
 		});

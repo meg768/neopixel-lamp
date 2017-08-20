@@ -14,7 +14,6 @@ var App = function() {
 
 			args.help();
 
-			args.command(require('./src/commands/test.js'));
 			args.command(require('./src/commands/server.js'));
 
 			args.wrap(null);
