@@ -143,9 +143,7 @@ var Module = new function() {
 					if (isFunction(fn))
 						fn({error: error.message});
 				});
-			}
-
-
+			})
 
 		});
 
