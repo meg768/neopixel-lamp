@@ -77,7 +77,6 @@ var Module = new function() {
 					return (thisPosition.altitude - nadirPosition.altitude) / (zenithPosition.altitude - nadirPosition.altitude);
 				}
 
-				console.log('Displaying clock!');
 
 				var now = new Date();
 				var hue = (((now.getHours() % 12) * 60) + now.getMinutes()) / 2;
@@ -92,6 +91,7 @@ var Module = new function() {
 				options.duration   = 100;
 				options.color      = {h:hue, s:100, l:luminance};
 
+				console.log('Displaying clock:', options);
 				strip.colorize(options);
 			}
 
