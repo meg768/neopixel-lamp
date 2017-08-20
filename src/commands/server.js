@@ -125,8 +125,8 @@ var Module = new function() {
 				disableClock();
 				showClock();
 
-				//timer = setInterval(showClock, 60000);
-                timer = setInterval(showClock, 1000);
+				timer = setInterval(showClock, 5 * 60000);
+                //timer = setInterval(showClock, 1000);
 			}
 
 			function showClock() {
@@ -152,6 +152,7 @@ var Module = new function() {
     				options.duration   = 100;
     				options.color      = {h:hue, s:100, l:luminance};
 
+                    console.log(options);
     				strip.colorize(options);
 
                 })
