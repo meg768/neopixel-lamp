@@ -78,10 +78,12 @@ module.exports = class SkyBrightness {
             query.format = 'json';
             query.env    = 'store://datatables.org/alltableswithkeys';
 
+            debug('Query:', query);
+
             request.get('/v1/public/yql', {query:query}).then(function(reply) {
                 var results = reply.body.query.results;
 
-                debug(results);
+                debug('Reply:', results);
 
                 if (isArray(results))
                     results = results[0];
