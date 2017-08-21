@@ -106,11 +106,12 @@ module.exports = class SkyBrightness {
 
                 }
                 catch(error) {
-                    console.log('REJECTING');
+                    console.log('REJECTING1');
                     reject(error);
                 }
             })
             .catch(function(error) {
+                console.log('REJECTING2');
                 reject(error);
             })
 
