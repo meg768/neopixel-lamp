@@ -6,7 +6,8 @@ var isFunction = require('yow/is').isFunction;
 var prefixLogs = require('yow/logs').prefix;
 var config = require('../scripts/config.js');
 var io = require('socket.io-client');
-var SkyBightness = require('sky-brightness');
+//var SkyBightness = require('sky-brightness');
+var SkyBightness = require('../scripts/sky-brightness.js');
 
 /*
 
