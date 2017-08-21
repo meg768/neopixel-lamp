@@ -79,9 +79,9 @@ var Module = new function() {
                         var now = new Date();
         				var hue = (((now.getHours() % 12) * 60) + now.getMinutes()) / 2;
 
-        				var luminance = brightness * 100;;
+        				var luminance = brightness * 100 * 0.5;
 
-        				luminance = Math.min(100, luminance);
+        				luminance = Math.min(50, luminance);
         				luminance = Math.max(1, luminance);
 
         				var options = {};
