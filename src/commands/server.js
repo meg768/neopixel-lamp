@@ -95,11 +95,9 @@ var Module = new function() {
 
                     })
                     .catch(function(error) {
-                        console.log('CANNOT GFET BRIGHTNESS');
                         console.log(error);
                     })
                     .then(function() {
-                        console.log('IHBORING ERROR');
                         resolve();
                     })
 
