@@ -107,7 +107,7 @@ module.exports = class SkyBrightness {
                 }
                 catch(error) {
                     console.log('REJECTING1');
-                    reject(error);
+                    throw error;
                 }
             })
             .catch(function(error) {
