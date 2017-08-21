@@ -81,9 +81,11 @@ module.exports = class SkyBrightness {
             debug('Query:', query);
 
             request.get('/v1/public/yql', {query:query}).then(function(reply) {
+
+                debug('Reply:', reply);
+
                 var results = reply.body.query.results;
 
-                debug('Reply:', results);
 
                 if (isArray(results))
                     results = results[0];
