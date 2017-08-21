@@ -4,7 +4,7 @@ var sprintf = require('yow/sprintf');
 var isArray = require('yow/is').isArray;
 
 function debug(...args) {
-    //console.log(...args)
+    console.log(...args)
 }
 
 module.exports = class SkyBrightness {
