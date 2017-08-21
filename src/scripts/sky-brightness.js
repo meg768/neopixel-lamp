@@ -4,7 +4,7 @@ var sprintf = require('yow/sprintf');
 var isArray = require('yow/is').isArray;
 
 function debug(...args) {
-    console.log(...args)
+    //console.log(...args)
 }
 
 module.exports = class SkyBrightness {
@@ -83,7 +83,6 @@ module.exports = class SkyBrightness {
             request.get('/v1/public/yql', {query:query}).then(function(reply) {
 
                 try {
-
                     var results = reply.body.query.results;
 
                     if (isArray(results))
