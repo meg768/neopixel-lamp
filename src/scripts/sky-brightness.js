@@ -83,12 +83,13 @@ module.exports = class SkyBrightness {
             request.get('/v1/public/yql', {query:query}).then(function(reply) {
 
                 try {
-                    debug('Reply:', reply);
 
                     var results = reply.body.query.results;
 
                     if (isArray(results))
                         results = results[0];
+
+                    debug('Results:', results);
 
                     var condition = results.channel.item.condition.text;
                     var brightness = brightnessIndex[condition];
