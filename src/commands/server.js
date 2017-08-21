@@ -132,33 +132,39 @@ var Module = new function() {
 			function showClock() {
 
 
-				var sky = new SkyBightness({
-					latitude: 55.7,
-					longitude: 13.1833333,
-					time: new Date()
-				});
+                return new Promise(function(resolve, reject) {
+                    var sky = new SkyBightness({
+    					latitude: 55.70,
+    					longitude: 13.21
+    				});
 
-                sky.getPerceptualBrightness().then(function(brightness) {
-                    var now = new Date();
-    				var hue = (((now.getHours() % 12) * 60) + now.getMinutes()) / 2;
+                    sky.getPerceptualBrightness().then(function(brightness) {
+                        var now = new Date();
+        				var hue = (((now.getHours() % 12) * 60) + now.getMinutes()) / 2;
 
-    				var luminance = brightness * 100;;
+        				var luminance = brightness * 100;;
 
-    				luminance = Math.min(100, luminance);
-    				luminance = Math.max(1, luminance);
+        				luminance = Math.min(100, luminance);
+        				luminance = Math.max(1, luminance);
 
-    				var options = {};
-    				options.transition = 'fade';
-    				options.duration   = 100;
-    				options.color      = {h:hue, s:100, l:luminance};
+        				var options = {};
+        				options.transition = 'fade';
+        				options.duration   = 100;
+        				options.color      = {h:hue, s:100, l:luminance};
 
-                    console.log(options);
-    				strip.colorize(options);
+                        console.log(options);
 
-                })
-                .catch(function(error) {
-                    console.log(error);
-                })
+        				strip.colorize(options);
+
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    })
+                    .then(function() {
+                        resolve();
+                    })
+
+                });
 
 			}
 
