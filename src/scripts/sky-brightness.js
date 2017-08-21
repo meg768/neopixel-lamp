@@ -4,7 +4,7 @@ var sprintf = require('yow/sprintf');
 var isArray = require('yow/is').isArray;
 
 function debug(...args) {
-    console.log(...args)
+    //console.log(...args)
 }
 
 module.exports = class SkyBrightness {
@@ -87,11 +87,8 @@ module.exports = class SkyBrightness {
 
                     var results = reply.body.query.results;
 
-
                     if (isArray(results))
                         results = results[0];
-
-                    //debug(results.channel.item);
 
                     var condition = results.channel.item.condition.text;
                     var brightness = brightnessIndex[condition];
@@ -106,12 +103,10 @@ module.exports = class SkyBrightness {
 
                 }
                 catch(error) {
-                    console.log('REJECTING1');
                     throw error;
                 }
             })
             .catch(function(error) {
-                console.log('REJECTING2');
                 reject(error);
             })
 
