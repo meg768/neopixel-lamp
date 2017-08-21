@@ -74,7 +74,7 @@ module.exports = class SkyBrightness {
             var request = new Request('https://query.yahooapis.com');
 
             var query = {};
-            query.q      = sprintf('select * from weather.forecast where woeid in (select woeid from geo.places where text="(%s,%s)")', self.longitude, self.latitude);
+            query.q      = sprintf('select * from weather.forecast where woeid in (select woeid from geo.places where text="(%s,%s)")', self.latitude, self.longitude);
             query.format = 'json';
             query.env    = 'store://datatables.org/alltableswithkeys';
 
