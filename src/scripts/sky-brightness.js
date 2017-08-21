@@ -150,6 +150,9 @@ module.exports = class SkyBrightness {
                 debug('Perceptual brightness:', brightness);
                 resolve(brightness);
             })
+            .catch(function(error) {
+                reject(error);
+            })
         });
     }
 }
