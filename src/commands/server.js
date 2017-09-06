@@ -25,7 +25,7 @@ var Module = new function() {
 		args.option('length',    {alias:'l', describe:'Neopixel strip length', default:config.strip.length});
 		args.option('segments',  {alias:'s', describe:'Number of segments in strip', default:config.strip.segments});
 		args.option('service',   {alias:'n', describe:'Service name', default:config.service.url});
-		args.option('interval',  {alias:'n', describe:'Refresh interval for clock in seconds', default:60});
+		args.option('interval',  {alias:'i', describe:'Refresh interval for clock in seconds', default:60});
 
 		args.wrap(null);
 
