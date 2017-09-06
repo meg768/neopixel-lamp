@@ -138,9 +138,8 @@ module.exports = function NeopixelStrip(options) {
 		});
 	};
 
-	_this.initialize = function(length) {
-		_length = length;
-		return _this.send([CMD_INITIALIZE, parseInt(length)]);
+	_this.initialize = function() {
+		return _this.send([CMD_INITIALIZE, parseInt(_length)]);
 	}
 
 	_this.send = function(bytes, timestamp) {

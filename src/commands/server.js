@@ -51,6 +51,8 @@ var Module = new function() {
 			var strip = new NeopixelStrip({segments:argv.segments, length:argv.length, address:argv.address});
 			var socket = io.connect(argv.service);
 
+			strip.initialize();
+			
 			function disableClock() {
 				if (timer != undefined) {
 					console.log('Disabling clock...');
