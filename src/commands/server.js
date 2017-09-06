@@ -20,11 +20,12 @@ var Module = new function() {
 
 		args.help('help').alias('help', 'h');
 
-		args.option('url',      {alias:'u', describe:'Socket IO url', default:config.service.url});
-		args.option('address',  {alias:'a', describe:'I2C bus address', default:config.i2c.address});
-		args.option('length',   {alias:'l', describe:'Neopixel strip length', default:config.strip.length});
-		args.option('segments', {alias:'s', describe:'Number of segments in strip', default:config.strip.segments});
-		args.option('service',  {alias:'n', describe:'Service name', default:config.service.url});
+		args.option('url',       {alias:'u', describe:'Socket IO url', default:config.service.url});
+		args.option('address',   {alias:'a', describe:'I2C bus address', default:config.i2c.address});
+		args.option('length',    {alias:'l', describe:'Neopixel strip length', default:config.strip.length});
+		args.option('segments',  {alias:'s', describe:'Number of segments in strip', default:config.strip.segments});
+		args.option('service',   {alias:'n', describe:'Service name', default:config.service.url});
+		args.option('interval',  {alias:'n', describe:'Refresh interval for clock in seconds', default:60});
 
 		args.wrap(null);
 
@@ -62,8 +63,7 @@ var Module = new function() {
 				disableClock();
 				showClock();
 
-				//timer = setInterval(showClock, 5 * 60000);
-                timer = setInterval(showClock, 1000);
+                timer = setInterval(showClock, 1000 * argv.interval);
 			}
 
 			function showClock() {
