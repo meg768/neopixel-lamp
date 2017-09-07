@@ -26,6 +26,7 @@ var Module = new function() {
 		args.option('segments',  {alias:'s', describe:'Number of segments in strip', default:config.strip.segments});
 		args.option('service',   {alias:'n', describe:'Service name', default:config.service.url});
 		args.option('interval',  {alias:'i', describe:'Refresh interval for clock in seconds', default:60});
+		args.option('debug',     {alias:'d', describe:'Debug, low lights', default:false});
 
 		args.wrap(null);
 
@@ -52,7 +53,7 @@ var Module = new function() {
 			var socket = io.connect(argv.service);
 
 			strip.initialize();
-			
+
 			function disableClock() {
 				if (timer != undefined) {
 					console.log('Disabling clock...');
@@ -91,6 +92,9 @@ var Module = new function() {
         				options.duration   = 100;
         				options.color      = {h:hue, s:100, l:luminance};
 
+						if (argv.debug)
+							options.color.l = 1;
+							
                         console.log(options);
 
         				strip.colorize(options);
